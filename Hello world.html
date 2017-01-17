@@ -10,7 +10,26 @@
 				var canvas = document.getElementById('testcanvas');
 				// Get the 2d context for this canvas
 				var context = canvas.getContext('2d');
+				
 				// Our drawing code here. . .
+				
+				// Full rectangles
+				// Draw a solid rectangle with a width and height of 100 pixels starting at 200, 100
+				context.fillRect(200, 10, 100, 100);
+				// Another rectangle with a width of 90 and height of 30 starting at 50, 70
+				context.fillRect(50, 70, 90, 30);
+				
+				// Stroked rectangles
+				// Draw a rectangular outline of width and height 50 pixels at (110,10)
+				context.strokeRect(110,10,50,50);
+				// Draw a rectangular outline of width and height 50 pixels at (30,10)
+				context.strokeRect(30,10,50,50);
+				
+				// Clear a rectangle
+				// Clear a rectangle of width 30 and height 20 starting at 210, 20
+				context.clearRect(210, 20, 30, 20);
+				// Clear a rectangle of width 30 and height 20 starting at (260,20)
+				context.clearRect(260, 20, 30, 20);
 			}
 		</script>
 		
