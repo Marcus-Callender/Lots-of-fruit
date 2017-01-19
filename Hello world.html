@@ -10,13 +10,35 @@
 			{
 			
 				// Creates an audio object.
-				var sound = new Audio();
-			
-				// Gives the audio object a music file
-				sound.src = "1-19 muscle blues.mp3";
+				var audio = document.createElement('audio');
+				var mp3Support, oggSupport;
 				
-				// Plays the music file.
-				sound.play();
+				if (audio.canPlayType)
+				{
+					// The method canPlayType will return "", "mayby" or "probably".
+					mp3Support = ("" != audio.canPlayType('audio/mp3')); 
+					oggSupport = ("" != audio.canPlayType('audio/ogg', codecs = "vorbis"));
+				}
+				else
+				{
+					// Audio is not supported in general
+					mp3Support = false;
+					oggSupport = false;
+				}
+				
+				// set the sound file extention to an appropriate type
+				var soundFileExtn = mp3Support ? ".mp3" : (oggSupport ? ".ogg" : undefined);
+				
+				if (soundFileExtn != undefined)
+				{
+					var music = new Audio();
+			
+					// Gives the audio object a music file
+					music.src = "1-19 muscle blues" + soundFileExtn;
+					
+					// Plays the music file.
+					music.play();
+				}
 			
 			}
 		
