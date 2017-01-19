@@ -29,15 +29,23 @@
 				// set the sound file extention to an appropriate type
 				var soundFileExtn = mp3Support ? ".mp3" : (oggSupport ? ".ogg" : undefined);
 				
-				if (soundFileExtn != undefined)
+				if (soundFileExtn)
 				{
+					// Creates an audio object
 					var music = new Audio();
-			
+					
+					music.addEventListener('canplaythrough', function()
+						{
+							alert('Music file has been loaded!');
+							
+							// Prepares the music file to be played once loaded
+							music.play();
+						}
+					);
+					
+			    
 					// Gives the audio object a music file
 					music.src = "1-19 muscle blues" + soundFileExtn;
-					
-					// Plays the music file.
-					music.play();
 				}
 			
 			}
