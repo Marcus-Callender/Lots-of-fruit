@@ -1,1 +1,3 @@
 Stroke, draws an outline.
+􀁎 Note Apart from rotating and translating back, you can also restore the canvas state by first using the save()
+method before starting the transformations and then calling the restore() method at the end of the transformations.
