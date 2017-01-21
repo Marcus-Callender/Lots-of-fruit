@@ -1,0 +1,6 @@
+I am unable to dynamicaly load and display an image 
+e.g.
+var image = new Image();
+image.src = 'spaceship.png';
+(page 13)
+
