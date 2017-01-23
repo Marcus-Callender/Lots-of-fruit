@@ -5,7 +5,7 @@
 		<title > Sample HTML5 File</title>
 		
 		<!--<img src = "ship.png" id = "spaceship">-->
-		<img src="ship.png" width="251" height="268" alt="Spaceship" id="spaceship">
+		<img src="ship.png" alt="Spaceship" id="spaceship">
 		
 		<script type = "text/javascript" charset = "utf-8">
 		
@@ -72,9 +72,40 @@
 					alert('Image has finished loading');
 				}
 			}*/
+			
+			function loadImage()
+			{
+				var imageLoader = 
+				{
+					loaded:true,
+					loadedImages:0,
+					totalImages:0,
+					
+					load:function(url)
+					{
+						this.totalImages++;
+						this.loaded  = false;
+						var image = new Image();
+						image.src = url;
+						
+						image.onload = function()
+						{
+							imageLoader.loadedImages++;
+							
+							if (imageLoader.loadedImages === imageLoader.totalImages)
+							{
+								imageLoader.loaded = true;
+							}
+						}
+						
+						return image;
+					}
+				}
+			}
 		
 			function pageLoaded()
 			{
+				
 				var image = document.getElementById('spaceship');
 				
 				//var spaceship2 = "ship.png";
