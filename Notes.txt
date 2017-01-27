@@ -6,3 +6,6 @@ Different browser vendors have their own proprietary names for the methods in th
 msrequestAnimationFrame and Mozilla’s mozRequestAnimationFrame). However, there is a simple piece of
 code (see Listing 1-24) that acts as a cross-browser polyfill providing you with the two methods that you use:
 requestAnimationFrame() and cancelAnimationFrame().
+
+<div> is a generic tag that is used to control the flow of a page.
+

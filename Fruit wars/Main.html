@@ -3,10 +3,25 @@
 	<head>
 		<meta http-equiv = "Content-type" content = "text/html; charset = utf-8">
 		<title>Fruit Wars</title>
+		
+		<!-- retreves the other scripts to use -->
 		<script src = "js/jquery.min.js" type = "text/javascript" charset = "utf-8"></script>
 		<script src = "js/game.js" type = "text/javascript" charset = "utf-8"></script>
 		<link rel = "stylesheet" href = "styles.css" type = "text/css" media = "screen" charset = "utf-8">
 	</head>
+	
+	<body>
+		<div id = "gamecontainer">
+			<canvas id = "gamecanvas" width = "640" height = "480" class = "gamelayer">
+			</canvas>
+			
+			<!-- code for loading in some of the images needed -->
+			<div id = "scorescreen" class = "gamelayer">
+				<img id = "togglemusic" src = "images/icons/sound.png">
+				<img src = "images/icons/prev.png">
+				<span id = "score"> Score : 0 </span>
+			</div>
+	</body>
 
 </html>
 
