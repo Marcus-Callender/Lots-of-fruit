@@ -1,0 +1,35 @@
+#gamecontainer
+{
+	width : 640px;
+	height : 480px;
+	// sets the main container image to the games splash screen
+	// so it is the first image visable on starting the game
+	background : url(images/splashscreen.png);
+	border : 1px solid black;
+}
+
+-gamelayer
+{
+	// all game layers are 650 x 480
+	width : 640px;
+	height : 480px;
+	// ensures all layers are placed in the same location
+	position : absolute;
+	display : none;
+}
+
+/* nodifies the game start screen (main menu) styleing to allow better text display*/
+#gamestartscreen
+{
+	padding-top : 250px;
+	text-align : center;
+}
+
+#gamestartscreen img
+{
+	margin : 10px;
+	cursor : pointer;
+}
+
+
+
