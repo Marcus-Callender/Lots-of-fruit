@@ -9,3 +9,4 @@ requestAnimationFrame() and cancelAnimationFrame().
 
 <div> is a generic tag that is used to control the flow of a page.
 
+<br> means line break and dosen't need a </br>
