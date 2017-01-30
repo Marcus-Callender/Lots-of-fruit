@@ -20,7 +20,7 @@ var game =
 		$('#gamestartscreen').show();
 		
 		// get a pointer for the games canvas and context
-		game.canvas = $('#gamecavas')[0];
+		game.canvas = $('#gamecanvas')[0];
 		game.context = game.canvas.getContext('2d');
 	},
 	
