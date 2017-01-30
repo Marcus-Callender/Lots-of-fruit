@@ -22,7 +22,14 @@ var game =
 		// get a pointer for the games canvas and context
 		game.canvas = $('#gamecavas')[0];
 		game.context = game.canvas.getContext('2d');
-	}
+	},
+	
+	// hides the main menu screen and slowly displays the level selection screen
+	showLevelScreen : function()
+	{
+		$('.gamelayer').hide();
+		$('#levelselectscreen').show('slow');
+	},
 }
 
 // an object for stroing data about the levels in the game
