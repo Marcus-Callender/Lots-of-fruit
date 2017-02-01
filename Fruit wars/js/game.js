@@ -12,8 +12,9 @@ var game =
 	// start initializing game objects, loading the assets and displaying the start screen
 	init : function()
 	{
-		// initialize 'levels' object
+		// initialize seprate game object
 		levels.init();
+		loader.init();
 		
 		// hide all game layers then display the game start screen
 		$('.gamelayer').hide();
@@ -38,13 +39,13 @@ var levels =
 	data : [
 		// first level
 		{
-			foreground : 'desert-forground',
+			foreground : 'desert-foreground',
 			background : 'clouds-background',
 			entities : []
 		},
 		// seccond level
 		{
-			foreground : 'desert-forground',
+			foreground : 'desert-foreground',
 			background : 'clouds-background',
 			entities : []
 		}
@@ -77,6 +78,30 @@ var levels =
 	// load the data needed for a spsific level
 	load : function(number)
 	{
+		// declare a new 'currentLevel' object
+		game.currentLevel = {number : number, hero : []};
+		game.score = 0;
+		
+		$('#score').html('Score: ' + game.score);
+		var level = levels.data[number];
+		
+		// load the background, forground and slingshot images
+		game.currentLevel.backgroundImage = loader.loadImage("images/backgrounds/" + level.background + ".png");
+		game.currentLevel.foregroundImage = loader.loadImage("images/backgrounds/" + level.foreground + ".png");
+		
+		game.slingshotImage = loader.loadImage("images/slingshot.png");
+		game.slingshotFrontImage = loader.loadImage("images/slingshot-front.png");
+		
+		// call start() once all the assets have been loaded
+		if (loader.loaded)
+		{
+			games.start();
+		}
+		else
+		{
+			// if the images haven't yet been loaded this will be called when they have
+			loader.onload = game.start;
+		}
 	}
 }
 
