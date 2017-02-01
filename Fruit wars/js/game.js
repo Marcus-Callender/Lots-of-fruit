@@ -50,7 +50,11 @@ $(window).load(
 
 // defines basic game logic for truit wars
 var game =
-{
+{// Game mode
+	mode : "intro",
+	slingshotX : 140,
+	slingshotY : 280,
+	
 	// start initializing game objects, loading the assets and displaying the start screen
 	init : function()
 	{
@@ -73,6 +77,48 @@ var game =
 		$('.gamelayer').hide();
 		$('#levelselectscreen').show('slow');
 	},
+	
+	start : function()
+	{
+		$('.gamelayer').hide();
+		
+		//Display the game canvas and current player score
+		$('#gamecanvas').show();
+		$('#scorescreen').show();
+		
+		game.mode = "intro";
+		game.offsetLeft = 0;
+		game.ended = false;
+		game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas);
+	},
+	
+	handlePanning : function()
+	{
+		// a tempory placeholder that will continusly pan to the right
+		game.offsetLeft++;
+	},
+	
+	animate : function()
+	{
+		// animation for the background
+		game.handlePanning();
+		
+		// animate the charicters
+		
+		// Draw the backgrounds with a paralax scrolling
+		// the forground will move 4x further than the background to simulate perspective
+		game.context.drawImage(game.currentLevel.backgroundImage, game.offsetLeft / 4.0, 0, 640, 480, 0, 0, 640, 480);
+		game.context.drawImage(game.currentLevel.foregroundImage, game.offsetLeft, 0, 640, 480, 0, 0, 640, 480);
+		
+		// draw the slingshot
+		game.context.drawImage(game.slingshotImage, game.slingshotX - game.offsetLeft, game.slingshotY);
+		game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.leftOffset, game.slingshotY);
+		
+		if (!game.ended)
+		{
+			game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas);
+		}
+	}
 }
 
 // an object for stroing data about the levels in the game
@@ -205,7 +251,7 @@ var loader =
 		$('#loadingmessage').html('Loaded ' + loader.assetsLoadedCount + ' of ' + loader.totalassetsCount);
 		
 		// if true all assets have been loaded
-		if (loader.loadedCount === loader.totalassetsCount)
+		if (loader.assetsLoadedCount === loader.totalassetsCount)
 		{
 			loader.loaded = true;
 			$('#loadingscreen').hide();
