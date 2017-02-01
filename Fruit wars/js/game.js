@@ -59,7 +59,7 @@ var levels =
 		for (var i = 0; i < levels.data.length; i++)
 		{
 			var level = levels.data[i];
-			html += ' < input type = "button" value = "' + (i + 1) + '" > ';
+			html += '<input type = "button" value = "' + (i + 1) + '">';
 		};
 		
 		$('#levelselectscreen').html(html);
