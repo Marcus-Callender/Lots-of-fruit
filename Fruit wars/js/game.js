@@ -159,7 +159,51 @@ var game =
 		}
 		
 		return false;
-	}
+	},
+	
+	handlePanning : function()
+	{
+		if (game.mode == "intro")
+		{
+			if (game.panTo(700))
+			{
+				game.mode = "load-next-hero";
+			}
+		}
+		
+		if (game.mode = "wait-for-firing")
+		{
+			if (mouse.dragging)
+			{
+				game.panTo(mouse.x + game.offsetLeft);
+			}
+			else
+			{
+				game.panTo(game.slingshotX);
+			}
+		}
+		
+		if (game.mode = "load-next-hero")
+		{
+			// TODO
+			// check if any enemies are alive to check if the game should be ended
+			// check if there are any heros left to fire to see if the game should be ended
+			// load the next hero
+			
+			game.mode = "wait-for-firing";
+		}
+		
+		if (game.mode = "firing")
+		{
+			game.panTo(game.slingshotX);
+		}
+		
+		if (game.mode = "fired")
+		{
+			// TODO
+			// pan the camera to track the current hero
+		}
+	},
 }
 
 // an object for stroing data about the levels in the game
