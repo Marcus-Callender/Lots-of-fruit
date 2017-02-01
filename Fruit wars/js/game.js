@@ -50,10 +50,17 @@ $(window).load(
 
 // defines basic game logic for truit wars
 var game =
-{// Game mode
+{
+	// Game mode
 	mode : "intro",
 	slingshotX : 140,
 	slingshotY : 280,
+	maxPanSpeed : 3.0,
+	minPanOffset : 0,
+	maxPanOffset : 300,
+	// current panning offset
+	offsetLeft : 0,
+	score : 0,
 	
 	// start initializing game objects, loading the assets and displaying the start screen
 	init : function()
@@ -119,6 +126,39 @@ var game =
 		{
 			game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas);
 		}
+	},
+	
+	panTo : function(centerPoint)
+	{
+		if ((Math.abs(centerPoint - game.offsetLeft - (game.canvas.width / 4)) > 0) && 
+			(game.offsetLeft <= game.maxPanOffset) && (game.offsetLeft >= game.minPanOffset))
+		{
+			var deltaX = Math.round((centerPoint - game.offsetLeft - (game.canvas.width / 4.0)) / 2.0);
+			
+			if (deltaX && Math.abs(deltaX) > game.maxPanOffset)
+			{
+				deltaX = game.maxPanSpeed * (Math.abs(deltaX) / deltaX);
+			}
+			
+			game.offsetLeft += deltaX;
+		}
+		else
+		{
+			return true;
+		}
+		
+		if (game.offsetLeft < game.minPanOffset)
+		{
+			game.offsetLeft = game.minPanOffset;
+			return true;
+		}
+		else if (game.offsetLeft > game.maxPanOffset)
+		{
+			game.offsetLeft = game.maxPanOffset;
+			return true;
+		}
+		
+		return false;
 	}
 }
 
