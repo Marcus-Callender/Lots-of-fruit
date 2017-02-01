@@ -266,3 +266,50 @@ var loader =
 	}
 }
 
+var mouse = 
+{
+	x : 0,
+	y : 0,
+	buttonDown : false,
+	
+	init : function()
+	{
+		$('#gamecanvas').mousemove(mouse.mousemovehandler);
+		$('#gamecanvas').mousedown(mouse.mousemovehandler);
+		$('#gamecanvas').mouseup(mouse.mousemovehandler);
+		$('#gamecanvas').mouseout(mouse.mousemovehandler);
+	},
+	
+	maousemovehandler : function(ev)
+	{
+		var offset = $('#gamecanvas').offset();
+		
+		mouse.x = ev.pageX - offset.left;
+		mouse.y = ev.pageY - offset.top;
+		
+		if (mouse.bouttonDown)
+		{
+			mouse.dragging = true;
+		}
+	},
+	
+	 mousemovehandler : function(ev)
+	 {
+		mouse.down = true;
+		mouse.downX = mouseX;
+		mouse.downY = mouseY;
+		ev.originalEvent.preventDefault();
+	 },
+	 
+	 mouseuphandler : function(ev)
+	 {
+		mouse.down = false;
+		mouse.dregging = false;
+	 }
+}
+
+
+
+
+
+
