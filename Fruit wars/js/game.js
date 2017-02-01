@@ -1,3 +1,45 @@
+// sets up the requestAnimationFrame and cancelAnimationFrame for use in the games code
+(function()
+{
+	var lastTime = 0;
+	var vendors = ['ms', 'moz', 'webkit', 'o'];
+	
+	for (var z = 0; z < vendors.length && !window.requestAnimationFrame; ++z)
+	{
+		window.requestAnimattionFrame = window[vendors[z] + 'requestAnimationFrame'];
+		window.cancelAnimationFrame = window[vendors[z] + 'cancelAnimationFrame'] 
+			|| window[vendors[z] + 'cancelRequestANimationFrame'];
+	}
+	
+	if (!window.requestAnimationFrame)
+	{
+		window.requestAnimationFrame = function(callback, element)
+		{
+			var currentTime = new Date().getTime();
+			var timeToCall = Math.max(0, 16 - (currentTime - lastTime));
+			
+			var id = window.setTimeout (function()
+				{
+					callback(currentTime + timeToCall);
+				},
+				timeToCall
+			);
+			
+			lastTime = currentTime + timeToCall;
+			
+			return id;
+		};
+		
+		if (!window.cancelAnimationFrame)
+		{
+			window.cancelAnimationFrame = function(id)
+			{
+				clearTimeout(id);
+			};
+		}
+	}
+}());
+
 // calles game.init when the window has fully loaded
 $(window).load(
 	function()
