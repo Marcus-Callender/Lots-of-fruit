@@ -61,6 +61,7 @@ var game =
 		// initialize seprate game object
 		levels.init();
 		loader.init();
+		mouse.init();
 		
 		// hide all game layers then display the game start screen
 		$('.gamelayer').hide();
@@ -280,6 +281,7 @@ var mouse =
 		$('#gamecanvas').mouseout(mouse.mousemovehandler);
 	},
 	
+	// uses jquery's offset() method to calculate the mouse position from the top left of the canvas and checks for mouse button input
 	maousemovehandler : function(ev)
 	{
 		var offset = $('#gamecanvas').offset();
@@ -293,7 +295,8 @@ var mouse =
 		}
 	},
 	
-	 mousemovehandler : function(ev)
+	// Stores the position of the mouse when a mouse button was pressed and prevents default browser behaviour of mouse clicks
+	 mousedownhandler : function(ev)
 	 {
 		mouse.down = true;
 		mouse.downX = mouseX;
@@ -301,6 +304,7 @@ var mouse =
 		ev.originalEvent.preventDefault();
 	 },
 	 
+	 // if the mouse leavs the canvas it it counted as the input being relesed
 	 mouseuphandler : function(ev)
 	 {
 		mouse.down = false;
