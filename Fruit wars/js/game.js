@@ -6,9 +6,9 @@
 	
 	for (var z = 0; z < vendors.length && !window.requestAnimationFrame; ++z)
 	{
-		window.requestAnimattionFrame = window[vendors[z] + 'requestAnimationFrame'];
-		window.cancelAnimationFrame = window[vendors[z] + 'cancelAnimationFrame'] 
-			|| window[vendors[z] + 'cancelRequestANimationFrame'];
+		window.requestAnimationFrame = window[vendors[z] + 'RequestAnimationFrame'];
+		window.cancelAnimationFrame = window[vendors[z] + 'CancelAnimationFrame'] 
+			|| window[vendors[z] + 'CancelRequestAnimationFrame'];
 	}
 	
 	if (!window.requestAnimationFrame)
@@ -100,11 +100,11 @@ var game =
 		game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas);
 	},
 	
-	handlePanning : function()
+	/*handlePanning : function()
 	{
 		// a tempory placeholder that will continusly pan to the right
 		game.offsetLeft++;
-	},
+	},*/
 	
 	animate : function()
 	{
@@ -120,7 +120,7 @@ var game =
 		
 		// draw the slingshot
 		game.context.drawImage(game.slingshotImage, game.slingshotX - game.offsetLeft, game.slingshotY);
-		game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.leftOffset, game.slingshotY);
+		game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.offsetLeft, game.slingshotY);
 		
 		if (!game.ended)
 		{
@@ -130,14 +130,14 @@ var game =
 	
 	panTo : function(centerPoint)
 	{
-		if ((Math.abs(centerPoint - game.offsetLeft - (game.canvas.width / 4)) > 0) && 
-			(game.offsetLeft <= game.maxPanOffset) && (game.offsetLeft >= game.minPanOffset))
+		if (Math.abs(centerPoint - game.offsetLeft - game.canvas.width / 4) > 0
+			&& game.offsetLeft <= game.maxPanOffset && game.offsetLeft >= game.minPanOffset)
 		{
-			var deltaX = Math.round((centerPoint - game.offsetLeft - (game.canvas.width / 4.0)) / 2.0);
+			var deltaX = Math.round((centerPoint - game.offsetLeft - game.canvas.width / 4.0) / 2.0);
 			
-			if (deltaX && Math.abs(deltaX) > game.maxPanOffset)
+			if (deltaX && Math.abs(deltaX) > game.maxPanSpeed)
 			{
-				deltaX = game.maxPanSpeed * (Math.abs(deltaX) / deltaX);
+				deltaX = game.maxPanSpeed * Math.abs(deltaX) / (deltaX);
 			}
 			
 			game.offsetLeft += deltaX;
@@ -360,9 +360,9 @@ var mouse =
 	init : function()
 	{
 		$('#gamecanvas').mousemove(mouse.mousemovehandler);
-		$('#gamecanvas').mousedown(mouse.mousemovehandler);
-		$('#gamecanvas').mouseup(mouse.mousemovehandler);
-		$('#gamecanvas').mouseout(mouse.mousemovehandler);
+		$('#gamecanvas').mousedown(mouse.mousedownhandler);
+		$('#gamecanvas').mouseup(mouse.mouseuphandler);
+		$('#gamecanvas').mouseout(mouse.mouseuphandler);
 	},
 	
 	// uses jquery's offset() method to calculate the mouse position from the top left of the canvas and checks for mouse button input
@@ -380,20 +380,20 @@ var mouse =
 	},
 	
 	// Stores the position of the mouse when a mouse button was pressed and prevents default browser behaviour of mouse clicks
-	 mousedownhandler : function(ev)
-	 {
+	mousedownhandler : function(ev)
+	{
 		mouse.down = true;
-		mouse.downX = mouseX;
-		mouse.downY = mouseY;
+		mouse.downX = mouse.x;
+		mouse.downY = mouse.y;
 		ev.originalEvent.preventDefault();
-	 },
-	 
-	 // if the mouse leavs the canvas it it counted as the input being relesed
-	 mouseuphandler : function(ev)
-	 {
+	},
+	
+	// if the mouse leavs the canvas it it counted as the input being relesed
+	mouseuphandler : function(ev)
+	{
 		mouse.down = false;
-		mouse.dregging = false;
-	 }
+		mouse.dragging = false;
+	}
 }
 
 
