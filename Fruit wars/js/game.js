@@ -130,7 +130,7 @@ var game =
 	
 	panTo : function(centerPoint)
 	{
-		if (Math.abs(centerPoint - game.offsetLeft - game.canvas.width / 4) > 0
+		if (Math.abs(centerPoint - game.offsetLeft - game.canvas.width / 4.0) > 0
 			&& game.offsetLeft <= game.maxPanOffset && game.offsetLeft >= game.minPanOffset)
 		{
 			var deltaX = Math.round((centerPoint - game.offsetLeft - game.canvas.width / 4.0) / 2.0);
@@ -163,47 +163,46 @@ var game =
 	
 	handlePanning : function()
 	{
-		if (game.mode == "intro")
-		{
-			if (game.panTo(700))
+        if (game.mode == "intro")
+		{        
+            if (game.panTo(700))
 			{
-				game.mode = "load-next-hero";
-			}
-		}
-		
-		if (game.mode = "wait-for-firing")
-		{
-			if (mouse.dragging)
+                game.mode = "load-next-hero";
+            }             
+        }       
+
+        if(game.mode == "wait-for-firing")
+		{  
+            if (mouse.dragging)
 			{
-				game.panTo(mouse.x + game.offsetLeft);
-			}
+				game.panTo(mouse.x + game.offsetLeft)
+            }
 			else
 			{
-				game.panTo(game.slingshotX);
-			}
+                game.panTo(game.slingshotX);
+            }
+        }
+		
+		if (game.mode == "load-next-hero")
+		{
+			// TODO: 
+			// Check if any villains are alive, if not, end the level (success)
+			// Check if there are any more heroes left to load, if not end the level (failure)
+			// Load the hero and set mode to wait-for-firing
+			game.mode = "wait-for-firing";			
 		}
 		
-		if (game.mode = "load-next-hero")
+		if(game.mode == "firing")
+		{  
+            game.panTo(game.slingshotX);
+        }
+        
+		if (game.mode == "fired")
 		{
-			// TODO
-			// check if any enemies are alive to check if the game should be ended
-			// check if there are any heros left to fire to see if the game should be ended
-			// load the next hero
-			
-			game.mode = "wait-for-firing";
+			// TODO:
+			// Pan to wherever the hero currently is
 		}
-		
-		if (game.mode = "firing")
-		{
-			game.panTo(game.slingshotX);
-		}
-		
-		if (game.mode = "fired")
-		{
-			// TODO
-			// pan the camera to track the current hero
-		}
-	},
+   	},
 }
 
 // an object for stroing data about the levels in the game
@@ -366,14 +365,14 @@ var mouse =
 	},
 	
 	// uses jquery's offset() method to calculate the mouse position from the top left of the canvas and checks for mouse button input
-	maousemovehandler : function(ev)
+	mousemovehandler : function(ev)
 	{
 		var offset = $('#gamecanvas').offset();
 		
 		mouse.x = ev.pageX - offset.left;
 		mouse.y = ev.pageY - offset.top;
 		
-		if (mouse.bouttonDown)
+		if (mouse.buttonDown)
 		{
 			mouse.dragging = true;
 		}
@@ -382,7 +381,7 @@ var mouse =
 	// Stores the position of the mouse when a mouse button was pressed and prevents default browser behaviour of mouse clicks
 	mousedownhandler : function(ev)
 	{
-		mouse.down = true;
+		mouse.buttonDown = true;
 		mouse.downX = mouse.x;
 		mouse.downY = mouse.y;
 		ev.originalEvent.preventDefault();
@@ -391,7 +390,7 @@ var mouse =
 	// if the mouse leavs the canvas it it counted as the input being relesed
 	mouseuphandler : function(ev)
 	{
-		mouse.down = false;
+		mouse.buttonDown = false;
 		mouse.dragging = false;
 	}
 }
