@@ -24,5 +24,32 @@ function init()
 	
 	// sets up the box2D world so it can be used for calculating the physics
 	world = new b2World(gravity, allowSleep);
+	
+	createFloor();
+}
+
+function createFloor()
+{
+	// create and set all data for the rigid body
+	var bodyDef = new b2BodyDef;
+	bodyDef.type = b2BodyDef.b2_staticBody;
+	// in the midle (horizontaly)
+	bodyDef.position.x = (640 / 2) / scale;
+	// at the bottom of the canvas
+	bodyDef.position.y = 450 / scale;
+	
+	// a fixture is used for attaching a shape to a body to detect if it has collided
+	// creates and sets data for the objects fixture
+	var fixtureDef = new b2FixtureDef;
+	fixtureDef.density = 1.0;
+	fixtureDef.friction = 0.5;
+	fixtureDef.restitution = 0.2;
+	
+	fixtureDef.shape = new b2PolygonShape;
+	// the floor box will be 640 x 20 pixels
+	fixtureDef.shape.SetAsBox(320 / scale, 10 / scale);
+	
+	var body = world.CreateBody(bodyDef);
+	var fixture = body.CreateFixture(fixtureDef);
 }
 

@@ -13,3 +13,5 @@ requestAnimationFrame() and cancelAnimationFrame().
 
 <p> a paragraph of text </p>
 
+Box2D uses the center of a body as it's position 
+HTML5 uses the top left of an object
