@@ -32,6 +32,7 @@ function init()
 	world = new b2World(gravity, allowSleep);
 	
 	createFloor();
+	createRectangularBody();
 	
 	setupDebugDraw();
 	animate();
@@ -41,7 +42,7 @@ function createFloor()
 {
 	// create and set all data for the rigid body
 	var bodyDef = new b2BodyDef;
-	bodyDef.type = b2BodyDef.b2_staticBody;
+	bodyDef.type = b2Body.b2_staticBody;
 	// in the midle (horizontaly)
 	bodyDef.position.x = (640 / 2) / scale;
 	// at the bottom of the canvas
@@ -57,6 +58,25 @@ function createFloor()
 	fixtureDef.shape = new b2PolygonShape;
 	// the floor box will be 640 x 20 pixels
 	fixtureDef.shape.SetAsBox(320 / scale, 10 / scale);
+	
+	var body = world.CreateBody(bodyDef);
+	var fixture = body.CreateFixture(fixtureDef);
+}
+
+function createRectangularBody()
+{
+	var bodyDef = new b2BodyDef;
+	bodyDef.type = b2Body.b2_dynamicBody;
+	bodyDef.position.x = 40 / scale;
+	bodyDef.position.y = 100 / scale;
+	
+	var fixtureDef = new b2FixtureDef;
+	fixtureDef.density = 1.0;
+	fixtureDef.friction = 0.5;
+	fixtureDef.restitiion = 0.3;
+	
+	fixtureDef.shape = new b2PolygonShape;
+	fixtureDef.shape.SetAsBox(30 / scale, 50 / scale);
 	
 	var body = world.CreateBody(bodyDef);
 	var fixture = body.CreateFixture(fixtureDef);
