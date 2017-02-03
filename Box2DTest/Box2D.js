@@ -14,6 +14,8 @@ var world;
 // 30 pixels on the canvas will represent 1 meter in Box2D space
 var scale = 30;
 
+var context;
+
 function init()
 {
 	// the rate and direction objects will fall
@@ -26,6 +28,8 @@ function init()
 	world = new b2World(gravity, allowSleep);
 	
 	createFloor();
+	
+	setupDebugDraw();
 }
 
 function createFloor()
@@ -51,5 +55,26 @@ function createFloor()
 	
 	var body = world.CreateBody(bodyDef);
 	var fixture = body.CreateFixture(fixtureDef);
+}
+
+function setupDebugDraw()
+{
+	context = document.getElementById('canvas').getContext('2d');
+	
+	var debugDraw = new b2DebugDraw();
+	
+	// specify the canvas to be used for drawing debug shapes
+	debugDraw.SetSprite(context);
+	// set the scale used
+	debugDraw.SetDrawScale(scale);
+	// set the boxes to be mostly transparent
+	debugDraw.SetFillAlpha(0.3);
+	// set the lines drawn to have a thickness of 1 pixel
+	debugDraw.SetLineThickness(1.0);
+	// display all shapes and joints
+	debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+	
+	// start using the debug draw in the world
+	world.SetDebugDraw(debugDraw);
 }
 
