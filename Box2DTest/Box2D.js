@@ -16,6 +16,10 @@ var scale = 30;
 
 var context;
 
+var timeStep = 1/60;
+var velocityIterations = 8;
+var positionIterations = 3;
+
 function init()
 {
 	// the rate and direction objects will fall
@@ -30,6 +34,7 @@ function init()
 	createFloor();
 	
 	setupDebugDraw();
+	animate();
 }
 
 function createFloor()
@@ -76,5 +81,16 @@ function setupDebugDraw()
 	
 	// start using the debug draw in the world
 	world.SetDebugDraw(debugDraw);
+}
+
+function animate()
+{
+	world.Step(timeStep, velocityIterations, positionIterations);
+	world.ClearForces();
+	
+	world.DrawDebugData();
+	
+	// will run the animate function again after 1/60th of a seccond
+	setTimeout(animate, timeStep);
 }
 
