@@ -40,6 +40,17 @@
 	}
 }());
 
+// Declare all the commonly used objects as variables for convenience
+var b2Vec2 = Box2D.Common.Math.b2Vec2;
+var b2BodyDef = Box2D.Dynamics.b2BodyDef;
+var b2Body = Box2D.Dynamics.b2Body;
+var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+var b2Fixture = Box2D.Dynamics.b2Fixture;
+var b2World = Box2D.Dynamics.b2World;
+var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
+var b2CircleShape = Box2D.Collision.Shapes.b2CircleShape;
+var b2DebugDraw = Box2D.Dynamics.b2DebugDraw;
+
 var entities =
 {
 	definitions :
@@ -129,6 +140,20 @@ var entities =
 	draw : function(entity, position, angle)
 	{
 		
+	}
+}
+
+// holds all Box2D related methods and data
+var box2d =
+{
+	scale : 30,
+	
+	init : function()
+	{
+		// set up the box2d world that the objects will be contained in
+		var gravity = new b2Vec2(0, 9.8);
+		var allowSleep = true;
+		box2d.world = new b2World(gravity, allowSleep);
 	}
 }
 
