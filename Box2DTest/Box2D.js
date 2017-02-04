@@ -33,6 +33,7 @@ function init()
 	
 	createFloor();
 	createRectangularBody();
+	createCircularBody();
 	
 	setupDebugDraw();
 	animate();
@@ -73,7 +74,7 @@ function createRectangularBody()
 	var fixtureDef = new b2FixtureDef;
 	fixtureDef.density = 1.0;
 	fixtureDef.friction = 0.5;
-	fixtureDef.restitiion = 0.3;
+	fixtureDef.restitution = 0.3;
 	
 	fixtureDef.shape = new b2PolygonShape;
 	fixtureDef.shape.SetAsBox(30 / scale, 50 / scale);
@@ -92,7 +93,7 @@ function createCircularBody()
 	var fixtureDef = new b2FixtureDef;
 	fixtureDef.density = 1.0;
 	fixtureDef.friction = 0.5;
-	fixtureDef.restitiion = 0.7;
+	fixtureDef.restitution = 0.7;
 	
 	fixtureDef.shape = new b2CircleShape(30 / scale);
 	
