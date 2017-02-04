@@ -248,6 +248,7 @@ function drawSpecialBody()
 	var rotation = specialBody.GetAngle();
 	
 	// translate and rotate the context so drawings match the object they are being drawn on
+	context.translate(position.x * scale, position.y * scale);
 	context.rotate(rotation);
 	
 	// colour the circle
@@ -276,6 +277,7 @@ function drawSpecialBody()
 	
 	// reset the context position and rotation
 	context.rotate(-rotation);
+	context.translate(-position.x * scale, -position.y * scale);
 }
 
 function addContactListener()
