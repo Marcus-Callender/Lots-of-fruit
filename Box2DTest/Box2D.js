@@ -39,6 +39,9 @@ function init()
 	createSimplePolygonBody();
 	createComplexBody();
 	createRevoluteJointBody();
+	createSpecialBody();
+	
+	addContactListener();
 	
 	setupDebugDraw();
 	animate();
@@ -227,15 +230,36 @@ function createSpecialBody()
 	specialBody = world.CreateBody(bodyDef);
 	specialBody.SetUserData({name : "special", life : 250})
 	
-	// create a fixture to attach a circular shape to the body
+	// create a fixture to attach to the special body
 	var fixtureDef = new b2FixtureDef;
 	fixtureDef.density = 1.0;
 	fixtureDef.Friction = 0.5;
 	fixtureDef.restitution = 0.5;
 	
-	fixture.shape = new b2CircleShape(30 / scale);
+	fixtureDef.shape = new b2CircleShape(30 / scale);
 	
 	var fixture = specialBody.CreateFixture(fixtureDef);
+}
+
+function addContactListener()
+{
+	var listener = new Box2D.Dynamics.b2ContactListener;
+	listener.PostSolve = function (contact, impulse)
+	{
+		var body1 = contact.GetFixtureA().GetBody();
+		var body2 = contact.GetFixtureB().GetBody();
+		
+		// if eather of the bodies is our specialBody, reduce it's life
+		if (body1 == specialBody || body2 == specialBody)
+		{
+			var impulseAlongNormal = impulse.normalImpulses[0];
+			specialBody.GetUserData().life -= impulseAlongNormal;
+			console.log("Special body colided with impulse ", impulseAlongNormal, " and it's life is now ", specialBody.GetUserData().life);
+		}
+	};
+	
+	// listener function will now be run whenever a colision occours in world
+	world.SetContactListener(listener);
 }
 
 function setupDebugDraw()
