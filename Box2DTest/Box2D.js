@@ -241,6 +241,43 @@ function createSpecialBody()
 	var fixture = specialBody.CreateFixture(fixtureDef);
 }
 
+function drawSpecialBody()
+{
+	// get the rigidbodies position and rotation
+	var position = specialBody.GetPosition();
+	var rotation = specialBody.GetAngle();
+	
+	// translate and rotate the context so drawings match the object they are being drawn on
+	context.rotate(rotation);
+	
+	// colour the circle
+	context.fillStyle = "rgb(200, 150, 250);";
+	context.beginPath();
+	context.arc(0, 0, 30, 0, Math.PI * 2, false);
+	context.fill();
+	
+	// draw two rectangular eyes
+	context.fillStyle = "rgb(255, 255, 255);";
+	context.fillRect = (-15, -15, 10, 5);
+	context.fillRect = (5, -15, 10, 5);
+	
+	// draw a smile at high life and a frown at low life
+	context.strokeStyle = "rgb(255, 255, 255);";
+	context.beginPath();
+	if (specialBody.GetUserData().life > 100)
+	{
+		context.arc(0, 0, 10, Math.PI, Math.PI * 2, true);
+	}
+	else
+	{
+		context.arc(0, 10, 10, Math.PI, Math.PI * 2, false);
+	}
+	context.stroke();
+	
+	// reset the context position and rotation
+	context.rotate(-rotation);
+}
+
 function addContactListener()
 {
 	var listener = new Box2D.Dynamics.b2ContactListener;
@@ -289,6 +326,20 @@ function animate()
 	world.ClearForces();
 	
 	world.DrawDebugData();
+	
+	// if the special body exists draw a face on it (^.^)
+	if (specialBody)
+	{
+		drawSpecialBody();
+	}
+	
+	// remove special body if it exists and has run out of health
+	if (specialBody && (specialBody.GetUserData().life <= 0))
+	{
+		world.DestroyBody(specialBody);
+		specialBody = undefined;
+		console.log("Special body destroyed");
+	}
 	
 	// will run the animate function again after 1/60th of a seccond
 	setTimeout(animate, timeStep);
