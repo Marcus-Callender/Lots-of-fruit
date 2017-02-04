@@ -20,6 +20,8 @@ var timeStep = 1/60;
 var velocityIterations = 8;
 var positionIterations = 3;
 
+var specialBody;
+
 function init()
 {
 	// the rate and direction objects will fall
@@ -36,6 +38,7 @@ function init()
 	createCircularBody();
 	createSimplePolygonBody();
 	createComplexBody();
+	createRevoluteJointBody();
 	
 	setupDebugDraw();
 	animate();
@@ -163,6 +166,76 @@ function createComplexBody()
 	];
 	fixtureDef.shape.SetAsArray(points, points.length);
 	body.CreateFixture(fixtureDef);
+}
+
+function createRevoluteJointBody()
+{
+	// define the first body
+	var bodyDef1 = new b2BodyDef;
+	bodyDef1.type = b2Body.b2_dynamicBody;
+	bodyDef1.position.x = 480 / scale;
+	bodyDef1.position.y = 50 / scale;
+	var body1 = world.CreateBody(bodyDef1);
+	
+	// create a fixture to attach to body1
+	var fixtureDef1 = new b2FixtureDef;
+	fixtureDef1.density = 1.0;
+	fixtureDef1.friction = 0.5;
+	fixtureDef1.restitution = 0.5;
+	fixtureDef1.shape = new b2PolygonShape;
+	fixtureDef1.shape.SetAsBox(50 / scale, 10 / scale);
+	
+	body1.CreateFixture(fixtureDef1);
+	
+	// define the seccond body
+	var bodyDef2 = new b2BodyDef;
+	bodyDef2.type = b2Body.b2_dynamicBody;
+	bodyDef2.position.x = 470 / scale;
+	bodyDef2.position.y = 50 / scale;
+	var body2 = world.CreateBody(bodyDef2);
+	
+	// create a seccond fixture to attach to body2
+	var fixtureDef2 = new b2FixtureDef;
+	fixtureDef2.density = 1.0;
+	fixtureDef2.friction = 0.5;
+	fixtureDef2.restitution = 0.5;
+	fixtureDef2.shape = new b2PolygonShape;
+	var points = [
+		new b2Vec2(0, 0),
+		new b2Vec2(40 / scale, 50 / scale),
+		new b2Vec2(50 / scale, 100 / scale),
+		new b2Vec2(-50 / scale, 100 / scale),
+		new b2Vec2(-40 / scale, 50 / scale),
+	];
+	fixtureDef2.shape.SetAsArray(points, points.length);
+	body2.CreateFixture(fixtureDef2);
+	
+	// creates a revolute joint between body1 & 2
+	var jointDef = new b2RevoluteJointDef;
+	var jointCenter = new b2Vec2(470 / scale, 50 / scale);
+	jointDef.Initialize(body1, body2, jointCenter);
+	world.CreateJoint(jointDef);
+}
+
+function createSpecialBody()
+{
+	var bodyDef = new b2BodyDef;
+	bodyDef.type = b2Body.b2_dynamicBody;
+	bodyDef.position.x = 450 / scale;
+	bodyDef.position.y = 0 / scale;
+	
+	specialBody = world.CreateBody(bodyDef);
+	specialBody.SetUserData({name : "special", life : 250})
+	
+	// create a fixture to attach a circular shape to the body
+	var fixtureDef = new b2FixtureDef;
+	fixtureDef.density = 1.0;
+	fixtureDef.Friction = 0.5;
+	fixtureDef.restitution = 0.5;
+	
+	fixture.shape = new b2CircleShape(30 / scale);
+	
+	var fixture = specialBody.CreateFixture(fixtureDef);
 }
 
 function setupDebugDraw()
