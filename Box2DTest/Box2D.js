@@ -82,6 +82,24 @@ function createRectangularBody()
 	var fixture = body.CreateFixture(fixtureDef);
 }
 
+function createCircularBody()
+{
+	var bodyDef = new b2BodyDef;
+	bodyDef.type = b2Body.b2_dynamicBody;
+	bodyDef.position.x = 130 / scale;
+	bodyDef.position.y = 100 / scale;
+	
+	var fixtureDef = new b2FixtureDef;
+	fixtureDef.density = 1.0;
+	fixtureDef.friction = 0.5;
+	fixtureDef.restitiion = 0.7;
+	
+	fixtureDef.shape = new b2CircleShape(30 / scale);
+	
+	var body = world.CreateBody(bodyDef);
+	var fixture = body.CreateFixture(fixtureDef);
+}
+
 function setupDebugDraw()
 {
 	context = document.getElementById('canvas').getContext('2d');
