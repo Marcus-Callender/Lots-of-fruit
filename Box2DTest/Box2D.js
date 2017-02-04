@@ -34,6 +34,8 @@ function init()
 	createFloor();
 	createRectangularBody();
 	createCircularBody();
+	createSimplePolygonBody();
+	createComplexBody();
 	
 	setupDebugDraw();
 	animate();
@@ -99,6 +101,68 @@ function createCircularBody()
 	
 	var body = world.CreateBody(bodyDef);
 	var fixture = body.CreateFixture(fixtureDef);
+}
+
+function createSimplePolygonBody()
+{
+	var bodyDef = new b2BodyDef;
+	bodyDef.type = b2Body.b2_dynamicBody;
+	bodyDef.position.x = 230 / scale;
+	bodyDef.position.y = 50 / scale;
+	
+	var fixtureDef = new b2FixtureDef;
+	fixtureDef.density = 1.0;
+	fixtureDef.friction = 0.5;
+	fixtureDef.restitution = 0.2;
+	
+	fixtureDef.shape = new b2PolygonShape;
+	
+	// create an array of points 
+	// points must be defined in a clockwise direction
+	// point 0, 0 will be t5he bodies origin and will appear at 230, 50 in world space
+	var points = [
+		new b2Vec2(0, 0),
+		new b2Vec2(40 / scale, 50 / scale),
+		new b2Vec2(50 / scale, 100 / scale),
+		new b2Vec2(-50 / scale, 100 / scale),
+		new b2Vec2(-40 / scale, 50 / scale),
+	];
+	
+	// use SetAsArray to define the shape using the array of points
+	fixtureDef.shape.SetAsArray(points, points.length);
+	
+	var body = world.CreateBody(bodyDef);
+	var fixture = body.CreateFixture(fixtureDef);
+}
+
+function createComplexBody()
+{
+	var bodyDef = new b2BodyDef;
+	bodyDef.type = b2Body.b2_dynamicBody;
+	bodyDef.position.x = 350 / scale;
+	bodyDef.position.y = 50 / scale;
+	// creates a empty body for the fixtures to be attached to
+	var body = world.CreateBody(bodyDef);
+	
+	// create and attach a circular fixture to the body
+	var fixtureDef = new b2FixtureDef;
+	fixtureDef.density = 1.0;
+	fixtureDef.friction = 0.5;
+	fixtureDef.restitution = 0.7;
+	fixtureDef.shape = new b2CircleShape(40 / scale);
+	body.CreateFixture(fixtureDef);
+	
+	// create and attach a seccond polygon fixture to the body
+	fixtureDef.shape = new b2PolygonShape;
+	var points = [
+		new b2Vec2(0, 0),
+		new b2Vec2(40 / scale, 50 / scale),
+		new b2Vec2(50 / scale, 100 / scale),
+		new b2Vec2(-50 / scale, 100 / scale),
+		new b2Vec2(-40 / scale, 50 / scale),
+	];
+	fixtureDef.shape.SetAsArray(points, points.length);
+	body.CreateFixture(fixtureDef);
 }
 
 function setupDebugDraw()
