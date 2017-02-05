@@ -84,7 +84,7 @@ var entities =
 			friction : 0.5,
 			restitution : 0.4,
 		},
-		"soda" :
+		"sodacan" :
 		{
 			shape : "rectangle",
 			width : 40,
@@ -163,7 +163,7 @@ var entities =
 				// this code is for hero or vilan entities
 				entity.health = definition.fullHealth;
 				entity.fullHealth = definition.fullHealth;
-				entity.sprite = loader.loadImage("images/entities/" + entities.name + ".png");
+				entity.sprite = loader.loadImage("images/entities/" + entity.name + ".png");
 				entity.shape = definition.shape;
 				
 				if (definition.shape == "circle")
@@ -272,6 +272,7 @@ var box2d =
 		fixtureDef.shape = new b2CircleShape(entity.radius / box2d.scale);
 		
 		var body = box2d.world.CreateBody(bodyDef);
+		
 		body.SetUserData(entity);
 		
 		var fixture = body.CreateFixture(fixtureDef);
@@ -493,7 +494,7 @@ var levels =
 				
 				{type : "villain", name : "burger", x : 715, y : 160, calories : 590},
 				{type : "villain", name : "fries", x : 670, y : 400, calories : 420},
-				{type : "villain", name : "soda", x : 765, y : 395, calories : 150},
+				{type : "villain", name : "sodacan", x : 765, y : 395, calories : 150},
 				
 				{type : "hero", name : "strawberry", x : 40, y : 420},
 				{type : "hero", name : "orange", x : 90, y : 410},
@@ -529,6 +530,9 @@ var levels =
 	// load the data needed for a spsific level
 	load : function(number)
 	{
+		// initialze the box2d data and world
+		box2d.init();
+		
 		// declare a new 'currentLevel' object
 		game.currentLevel = {number : number, hero : []};
 		game.score = 0;
@@ -542,6 +546,13 @@ var levels =
 		
 		game.slingshotImage = loader.loadImage("images/slingshot.png");
 		game.slingshotFrontImage = loader.loadImage("images/slingshot-front.png");
+		
+		// load the entities for the level (going backwards through the array)
+		for (var i = level.entities.length - 1; i >= 0; i--)
+		{
+			var entity = level.entities[i];
+			entities.create(entity);
+		};
 		
 		// call start() once all the assets have been loaded
 		if (loader.loaded)
