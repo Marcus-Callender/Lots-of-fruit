@@ -133,7 +133,57 @@ var entities =
 	// create a new Box2D rigid body and add it to the current world
 	create : function(entity)
 	{
+		var definition = entities.definitions[entity.name];
 		
+		if (!definition)
+		{
+			console.log("Coulden't retreve entity: ", entity.name);
+			return;
+		}
+		
+		switch (entity.type)
+		{
+			case "block" :
+				entity.health = definition.fullHealth;
+				entity.fullHealth = definition.fullHealth;
+				entity.shape = "rectangle";
+				entity.sprite = loader.loadImage("images/entities/" + entity.name + ".png");
+				box2d.createRectangle(entity, definition);
+				break;
+				
+			case "ground" :
+				// no health because ground blocks are indestructable
+				entity.shape = "rectangle";
+				// no sprite is nesacery as ground blocks aren't drawn
+				box2d.createRectangle(entity, definition);
+				break;
+				
+			case "hero" :
+			case "villain" :
+				// this code is for hero or vilan entities
+				entity.health = definition.fullHealth;
+				entity.fullHealth = definition.fullHealth;
+				entity.sprite = loader.loadImage("images/entities/" + entities.name + ".png");
+				entity.shape = definition.shape;
+				
+				if (definition.shape == "circle")
+				{
+					entity.radius = definition.radius;
+					box2d.createCircle(entity, definition);
+				}
+				else if (definition.shape == "rectangle")
+				{
+					entity.width = definition.width;
+					entity.height = definition.height;
+					box2d.createRectangle(entity, definition);
+				}
+				break;
+				
+			default :
+				// if none of the other cases are run
+				console.log("Coulden't recognise entity: ", entity.name);
+				break;
+		}
 	},
 	
 	// draw the specified entity at the specified position and angle
