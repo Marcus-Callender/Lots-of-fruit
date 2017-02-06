@@ -57,6 +57,7 @@ var entities =
 	{
 		"glass" :
 		{
+			//name : "glass",
 			fullHealth : 100,
 			density : 2.4,
 			friction : 0.4,
@@ -64,6 +65,7 @@ var entities =
 		},
 		"wood" :
 		{
+			//name : "wood",
 			fullHealth : 500,
 			density : 0.7,
 			friction : 0.4,
@@ -71,12 +73,14 @@ var entities =
 		},
 		"dirt" :
 		{
+			//name : "dirt",
 			density : 3.0,
 			friction : 1.5,
 			restitution : 0.2,
 		},
 		"burger" :
 		{
+			//name : "burger",
 			shape : "circle",
 			radius : 25,
 			fullHealth : 40,
@@ -86,6 +90,7 @@ var entities =
 		},
 		"sodacan" :
 		{
+			//name : "sodacan",
 			shape : "rectangle",
 			width : 40,
 			height : 60,
@@ -96,6 +101,7 @@ var entities =
 		},
 		"fries" :
 		{
+			//name : "fries",
 			shape : "rectangle",
 			width : 40,
 			height : 50,
@@ -106,6 +112,7 @@ var entities =
 		},
 		"apple" :
 		{
+			//name : "apple",
 			shape : "circle",
 			radius : 25,
 			density : 1.5,
@@ -114,6 +121,7 @@ var entities =
 		},
 		"orange" :
 		{
+			//name : "orange",
 			shape : "circle",
 			radius : 25,
 			density : 1.5,
@@ -122,6 +130,7 @@ var entities =
 		},
 		"strawberry" :
 		{
+			//name : "strawberry",
 			shape : "circle",
 			radius : 15,
 			density : 2.0,
@@ -204,6 +213,16 @@ var box2d =
 		var gravity = new b2Vec2(0, 9.8);
 		var allowSleep = true;
 		box2d.world = new b2World(gravity, allowSleep);
+		
+		// set up the debug drawings
+		var debugContext = document.getElementById('debugcanvas').getContext('2d');
+		var debugDraw = new b2DebugDraw();
+		debugDraw.SetSprite(debugContext);
+		debugDraw.SetDrawScale(box2d.scale);
+		debugDraw.SetFillAlpha(0.3);
+		debugDraw.SetLineThickness(1.0);
+		debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
+		box2d.world.SetDebugDraw(debugDraw);
 	},
 	
 	createRectangle : function(entity, definition)
@@ -359,14 +378,25 @@ var game =
 		game.context.drawImage(game.currentLevel.backgroundImage, game.offsetLeft / 4.0, 0, 640, 480, 0, 0, 640, 480);
 		game.context.drawImage(game.currentLevel.foregroundImage, game.offsetLeft, 0, 640, 480, 0, 0, 640, 480);
 		
-		// draw the slingshot
+		// draw the back of the slingshot
 		game.context.drawImage(game.slingshotImage, game.slingshotX - game.offsetLeft, game.slingshotY);
+		
+		// draw all the interactable objects
+		game.drawAllBodies();
+		
+		//draw the frount of the slingshot
 		game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.offsetLeft, game.slingshotY);
 		
 		if (!game.ended)
 		{
 			game.animationFrame = window.requestAnimationFrame(game.animate, game.canvas);
 		}
+	},
+	
+	drawAllBodies : function()
+	{
+		box2d.world.DrawDebugData();
+		// TODO draw the objects sprites on the screen
 	},
 	
 	panTo : function(centerPoint)
