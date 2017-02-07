@@ -198,7 +198,37 @@ var entities =
 	// draw the specified entity at the specified position and angle
 	draw : function(entity, position, angle)
 	{
+		// move the canvas to where the image needs to be drawn
+		game.context.translate(position.x * box2d.scale - game.offsetLeft, position.y * box2d.scale);
+		game.context.rotate(angle);
 		
+		// all images are drawn 1 pixel larger to hide gaps in the bix2d colision
+		switch (entity.type)
+		{
+			case "block" :
+				game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, -entity.width / 2 - 1, -entity.height / 2 - 1, entity.width + 2, entity.height + 2);
+				break;
+				
+			case "villain" :
+			case "hero" :
+				if (entity.shape == "circle")
+				{
+					game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, -entity.radius - 1, -entity.radius - 1, entity.radius * 2 + 2, entity.radius * 2 + 2);
+				}
+				else if (entity.shape == "rectangle")
+				{
+					game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, -entity.width / 2 - 1, -entity.height / 2 - 1, entity.width + 2, entity.height + 2);
+				}
+				break;
+			
+			case "ground" :
+				// do nothing as these objects are not drawn
+				break;
+		}
+		
+		// resets the canvas to its original position and rotation
+		game.context.rotate(-angle);
+		game.context.translate(-position.x * box2d.scale + game.offsetLeft, -position.y * box2d.scale);
 	}
 }
 
@@ -396,7 +426,17 @@ var game =
 	drawAllBodies : function()
 	{
 		box2d.world.DrawDebugData();
-		// TODO draw the objects sprites on the screen
+		
+		// find and draw all bodies registered in box2d
+		for (var body = box2d.world.GetBodyList(); body; body = body.GetNext())
+		{
+			var entity = body.GetUserData();
+			
+			if (entity)
+			{
+				entities.draw(entity, body.GetPosition(), body.GetAngle())
+			}
+		}
 	},
 	
 	panTo : function(centerPoint)
