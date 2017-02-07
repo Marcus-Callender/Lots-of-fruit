@@ -548,25 +548,60 @@ var game =
 
         if(game.mode == "wait-for-firing")
 		{  
-            //if (mouse.dragging)
-			//{
-			//	game.panTo(mouse.x + game.offsetLeft)
-            //}
-			//else
-			//{
-                game.panTo(game.slingshotX);
-            //}
+            if (mouse.dragging)
+			{
+				if (game.mouseOnCurrentHero())
+				{
+					// if the mouse is being clicked and on the current hero
+					game.mode = "firing";
+				}
+				else
+				{
+					// if the mouse is not over the current hero the screen pans 
+					game.panTo(mouse.x + game.offsetLeft)
+				}
+            }
+			else
+			{
+				game.panTo(game.slingshotX);
+            }
         }
 		
-		if(game.mode == "firing")
+		if (game.mode == "firing")
 		{  
-            game.panTo(game.slingshotX);
+			if (mouse.buttonDown)
+			{
+				game.panTo(game.slingshotX);
+				
+				game.currentHero.SetPosition({x : (mouse.x + game.offsetLeft) / box2d.scale, y : mouse.y / box2d.scale});
+			}
+			else
+			{
+				game.mode = "fired";
+				var impulseScaleFactor = 0.75;
+				
+				// fires the hero with a force preportional to the distance between the heros center and mouse pointer
+				var impulse = new b2Vec2((game.slingshotX + 35 - mouse.x - game.offsetLeft) * impulseScaleFactor, (game.slingshotY + 25 - mouse.y) * impulseScaleFactor);
+				game.currentHero.ApplyImpulse(impulse, game.currentHero.GetWorldCenter());
+			}
         }
         
 		if (game.mode == "fired")
 		{
-			// TODO:
-			// Pan to wherever the hero currently is
+			// pan to the location of the current hero
+			var heroX = game.currentHero.GetPosition().x * box2d.scale;
+			game.panTo(heroX);
+			
+			// if the hero has stoped moving or is out of bounds
+			if (!game.currentHero.IsAwake() || heroX < 0 || heroX > game.currentLevel.foregroundImage.width)
+			{
+				// remove the current hero and null the pointer
+				box2d.world.DestroyBody(game.currentHero);
+				game.currentHero = undefined;
+				
+				// change the mode to load the next hero
+				game.mode = "load-next-hero";
+			}
 		}
    	},
 	
@@ -593,6 +628,21 @@ var game =
 				// else ignore the entity as it is an obstical
 			}
 		}
+	},
+	
+	mouseOnCurrentHero : function()
+	{
+		if (!game.currentHero)
+		{
+			return false;
+		}
+		
+		var heroPosition = game.currentHero.GetPosition();
+		var distanceSquered = Math.pow((heroPosition.x * box2d.scale) - (mouse.x - game.offsetLeft), 2) + Math.pow((heroPosition.y * box2d.scale) - mouse.y, 2);
+		var radiusSquared = Math.pow(game.currentHero.GetUserData().radius, 2);
+		
+		// if the distance between the cursor and the hero squered is less than or equal than the heros radius returns true
+		return (distanceSquered <= radiusSquared);
 	},
 }
 
