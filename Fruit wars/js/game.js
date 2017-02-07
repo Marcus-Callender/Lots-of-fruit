@@ -199,25 +199,25 @@ var entities =
 	draw : function(entity, position, angle)
 	{
 		// move the canvas to where the image needs to be drawn
-		game.context.translate(position.x * box2d.scale - game.offsetLeft, position.y * box2d.scale);
+		game.context.translate((position.x * box2d.scale) - game.offsetLeft, position.y * box2d.scale);
 		game.context.rotate(angle);
 		
 		// all images are drawn 1 pixel larger to hide gaps in the bix2d colision
 		switch (entity.type)
 		{
 			case "block" :
-				game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, -entity.width / 2 - 1, -entity.height / 2 - 1, entity.width + 2, entity.height + 2);
+				game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, (-entity.width / 2) - 1, (-entity.height / 2) - 1, entity.width + 2, entity.height + 2);
 				break;
 				
 			case "villain" :
 			case "hero" :
 				if (entity.shape == "circle")
 				{
-					game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, -entity.radius - 1, -entity.radius - 1, entity.radius * 2 + 2, entity.radius * 2 + 2);
+					game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, -entity.radius - 1, -entity.radius - 1, (entity.radius * 2) + 2, (entity.radius * 2) + 2);
 				}
 				else if (entity.shape == "rectangle")
 				{
-					game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, -entity.width / 2 - 1, -entity.height / 2 - 1, entity.width + 2, entity.height + 2);
+					game.context.drawImage(entity.sprite, 0, 0, entity.sprite.width, entity.sprite.height, (-entity.width / 2) - 1, (-entity.height / 2) - 1, entity.width + 2, entity.height + 2);
 				}
 				break;
 			
@@ -228,7 +228,7 @@ var entities =
 		
 		// resets the canvas to its original position and rotation
 		game.context.rotate(-angle);
-		game.context.translate(-position.x * box2d.scale + game.offsetLeft, -position.y * box2d.scale);
+		game.context.translate((-position.x * box2d.scale) + game.offsetLeft, -position.y * box2d.scale);
 	}
 }
 
@@ -282,7 +282,7 @@ var box2d =
 		fixtureDef.restitution = definition.restitution;
 		
 		fixtureDef.shape = new b2PolygonShape;
-		fixtureDef.shape.SetAsBox(entity.width / 2 / box2d.scale, entity.height / 2 / box2d.scale);
+		fixtureDef.shape.SetAsBox((entity.width / 2) / box2d.scale, (entity.height / 2) / box2d.scale);
 		
 		var body = box2d.world.CreateBody(bodyDef);
 		body.SetUserData(entity);
@@ -310,7 +310,7 @@ var box2d =
 		
 		if (entity.angle)
 		{
-			bodyDef.angle = Math.PI * entity.angle / 180;
+			bodyDef.angle = Math.PI * (entity.angle / 180);
 		}
 		
 		var fixtureDef = new b2FixtureDef;
