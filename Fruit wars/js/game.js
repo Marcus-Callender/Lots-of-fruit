@@ -328,6 +328,20 @@ var box2d =
 		
 		return body;
 	},
+	
+	step : function(timeStep)
+	{
+		var vecocityIterations = 8;
+		var positionIterations = 3;
+		
+		// limits the timestp to a maximum of 2/60 of a seccond
+		if (timeStep > 2 / 60)
+		{
+			timeStep = 2 / 60
+		}
+		
+		box2d.world.Step(timeStep, vecocityIterations, positionIterations);
+	},
 }
 
 // calles game.init when the window has fully loaded
@@ -402,6 +416,16 @@ var game =
 		game.handlePanning();
 		
 		// animate the charicters
+		var currentTime = new Date().getTime();
+		var timeStep;
+		
+		if (game.lastUpdateTime)
+		{
+			timeStep = (currentTime - game.lastUpdateTime) / 1000;
+			box2d.step(timeStep);
+		}
+		
+		game.lastUpdateTime = currentTime;
 		
 		// Draw the backgrounds with a paralax scrolling
 		// the forground will move 4x further than the background to simulate perspective
