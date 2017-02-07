@@ -581,7 +581,13 @@ var levels =
 		for (var i = level.entities.length - 1; i >= 0; i--)
 		{
 			var entity = level.entities[i];
+			
+			console.log("Creating entity: " + entity.name);
+			
 			entities.create(entity);
+			
+			if (entity.shape == undefined)
+				console.log("Create entity: " + entity.name + " failed")
 		};
 		
 		// call start() once all the assets have been loaded
