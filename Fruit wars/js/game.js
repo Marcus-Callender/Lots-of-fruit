@@ -504,28 +504,59 @@ var game =
 			{
                 game.mode = "load-next-hero";
             }             
-        }       
-
-        if(game.mode == "wait-for-firing")
-		{  
-            if (mouse.dragging)
-			{
-				game.panTo(mouse.x + game.offsetLeft)
-            }
-			else
-			{
-                game.panTo(game.slingshotX);
-            }
         }
 		
 		if (game.mode == "load-next-hero")
 		{
-			// TODO: 
-			// Check if any villains are alive, if not, end the level (success)
-			// Check if there are any more heroes left to load, if not end the level (failure)
-			// Load the hero and set mode to wait-for-firing
-			game.mode = "wait-for-firing";			
-		}
+			game.countCharicters();
+			
+			// if there are no villains remaing in the level the player has won
+			if (game.villains.length == 0)
+			{
+				game.mode = "level-success";
+				return;
+			}
+			
+			// if there are no heros in the level and still villains the player has lost
+			if (game.heroes.length == 0)
+			{
+				game.mode = "level-failure";
+				return;
+			}
+			
+			// if there are still heros and villans the game is still going
+			// if there is no current active hero
+			if (!game.currentHero)
+			{
+				game.currentHero = game.heroes[game.heroes.length - 1];
+				game.currentHero.SetPosition({x : 180 / box2d.scale, y : 200 / box2d.scale});
+				game.currentHero.SetLinearVelocity({x : 0, y : 0});
+				game.currentHero.SetAngularVelocity(0);
+				game.currentHero.SetAwake(true);
+			}
+			else
+			{
+				game.panTo(game.slingshotX);
+				
+				// Wait for hero to stop bouncing and return to sleep, then switch to wait-for-firing
+				if (!game.currentHero.IsAwake())
+				{
+					game.mode = "wait-for-firing";
+				}
+			}
+		}  
+
+        if(game.mode == "wait-for-firing")
+		{  
+            //if (mouse.dragging)
+			//{
+			//	game.panTo(mouse.x + game.offsetLeft)
+            //}
+			//else
+			//{
+                game.panTo(game.slingshotX);
+            //}
+        }
 		
 		if(game.mode == "firing")
 		{  
@@ -538,6 +569,31 @@ var game =
 			// Pan to wherever the hero currently is
 		}
    	},
+	
+	// counts the numbers of heros and villans still in the level
+	countCharicters : function()
+	{
+		game.heroes = [];
+		game.villains = [];
+		
+		for (var body = box2d.world.GetBodyList(); body; body = body.GetNext())
+		{
+			var entity = body.GetUserData();
+			
+			if (entity)
+			{
+				if (entity.type == "hero")
+				{
+					game.heroes.push(body);
+				}
+				else if (entity.type == "villain")
+				{
+					game.villains.push(body);
+				}
+				// else ignore the entity as it is an obstical
+			}
+		}
+	},
 }
 
 // an object for stroing data about the levels in the game
