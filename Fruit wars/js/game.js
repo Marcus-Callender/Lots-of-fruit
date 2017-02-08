@@ -491,6 +491,7 @@ var game =
 			{
 				var entityX = body.GetPosition().x * box2d.scale;
 				
+				if (entityX < 0 || entityX > game.currentLevel.foregroundImage.width || (entity.health && entity.health <= 0))
 				{
 					box2d.world.DestroyBody(body);
 					
