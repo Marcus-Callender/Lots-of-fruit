@@ -253,6 +253,37 @@ var box2d =
 		debugDraw.SetLineThickness(1.0);
 		debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
 		box2d.world.SetDebugDraw(debugDraw);
+		
+		// set up for the modified contact listener that will be used in colisions between bodies
+		var listener = new Box2D.Dynamics.b2ContactListener;
+		
+		listener.PostSolve = function(contact, impulse)
+		{
+			var body1 = contact.GetFixtureA().GetBody();
+			var body2 = contact.GetFixtureB().GetBody();
+			
+			var entity1 = body1.GetUserData();
+			var entity2 = body2.GetUserData();
+			
+			var impulseAlongNormal = Math.abs(impulse.normalImpulses[0]);
+			
+			// to reduce the ammount of times this is run all impulses under a value of 5 will be ignored
+			if (impulseAlongNormal > 5)
+			{
+				// if an entity has health, reduce the health of the impulse value
+				if (entity1.health)
+				{
+					entity1.health -= impulseAlongNormal;
+				}
+				
+				if (entity2.health)
+				{
+					entity2.health -= impulseAlongNormal;
+				}
+			}
+		}
+		
+		box2d.world.SetContactListener(listener);
 	},
 	
 	createRectangle : function(entity, definition)
