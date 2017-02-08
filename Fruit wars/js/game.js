@@ -603,6 +603,15 @@ var game =
 				game.mode = "load-next-hero";
 			}
 		}
+		
+		if (game.mode == "level-success" || game.mode == "level-failure")
+		{
+			if (game.panTo(0))
+			{
+				game.ended = true;
+				game.showEndingScreen();
+			}
+		}
    	},
 	
 	// counts the numbers of heros and villans still in the level
