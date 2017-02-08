@@ -489,7 +489,22 @@ var game =
 			
 			if (entity)
 			{
-				entities.draw(entity, body.GetPosition(), body.GetAngle())
+				var entityX = body.GetPosition().x * box2d.scale;
+				
+				{
+					box2d.world.DestroyBody(body);
+					
+					if (entity.type == "villain")
+					{
+						game.score += entity.calories;
+						$('#score').html('Score: ' + game.score);
+					}
+				}
+				else
+				{
+					entities.draw(entity, body.GetPosition(), body.GetAngle())
+				}
+				
 			}
 		}
 	},
