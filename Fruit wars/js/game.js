@@ -644,6 +644,30 @@ var game =
 		// if the distance between the cursor and the hero squered is less than or equal than the heros radius returns true
 		return (distanceSquered <= radiusSquared);
 	},
+	
+	showEndingScreen :  function()
+	{
+		if (game.mode == "level-success")
+		{
+			if (game.currentLevel.number  < levels.data.length -1)
+			{
+				$('#endingmessage').html('Level Complete! Good job!!');
+				$('#playnextlevel').show();
+			}
+			else
+			{
+				$('#endingmessage').html('Game Comlete! Well Done!!');
+				$('#playnextlevel').hide();
+			}
+		}
+		else if (game.mode == "level-failure")
+		{
+			$('#endingmessage').html('Level failed. Try again?');
+			$('#playnextlevel').hide();
+		}
+		
+		$('#endingscreen').show();
+	},
 }
 
 // an object for stroing data about the levels in the game
