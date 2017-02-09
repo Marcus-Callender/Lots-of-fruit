@@ -157,7 +157,7 @@ var entities =
 				entity.fullHealth = definition.fullHealth;
 				entity.shape = "rectangle";
 				entity.sprite = loader.loadImage("images/entities/" + entity.name + ".png");
-				entity.breakSound = game.breakSound[entity.name];
+				entity.blockBreakSound = game.blockBreakSound[entity.name];
 				box2d.createRectangle(entity, definition);
 				break;
 				
@@ -281,6 +281,17 @@ var box2d =
 				if (entity2.health)
 				{
 					entity2.health -= impulseAlongNormal;
+				}
+				
+				// if the entites have a bounce sound play it
+				if (entity1.bounceSound)
+				{
+					entity1.bounceSound.play();
+				}
+				
+				if (entity2.bounceSound)
+				{
+					entity2.bounceSound.play();
 				}
 			}
 		}
