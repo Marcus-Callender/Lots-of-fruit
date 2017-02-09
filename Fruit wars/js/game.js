@@ -469,6 +469,12 @@ var game =
 		// draw all the interactable objects
 		game.drawAllBodies();
 		
+		// draw the slingshot band only when the hero is being dragged
+		if (game.mode == "firing")
+		{
+			game.drawSlingshotBand();
+		}
+		
 		//draw the frount of the slingshot
 		game.context.drawImage(game.slingshotFrontImage, game.slingshotX - game.offsetLeft, game.slingshotY);
 		
@@ -738,7 +744,7 @@ var game =
 		var heroY = game.currentHero.GetPosition().y * box2d.scale;
 		
 		// atan2 is the angle between the posative x axis and the given coordanets
-		var angle = Math.atan2(game.slingshotX + (50 - game.offsetLeft), game.slingshotY + 25);
+		var angle = Math.atan2(game.slingshotY + (25 - heroY), game.slingshotX + (50 - heroX));
 		
 		var heroFarEdgeX = heroX - (heroRadius * Math.cos(angle));
 		var heroFarEdgeY = heroY - (heroRadius * Math.sin(angle));
