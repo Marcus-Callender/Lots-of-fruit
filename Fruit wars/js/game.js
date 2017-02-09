@@ -457,6 +457,8 @@ var game =
 		$('#gamecanvas').show();
 		$('#scorescreen').show();
 		
+		game.startBackgroundMusic();
+		
 		game.mode = "intro";
 		game.offsetLeft = 0;
 		game.ended = false;
@@ -744,6 +746,8 @@ var game =
 	
 	showEndingScreen :  function()
 	{
+		game.stopBackgroundMusic();
+		
 		if (game.mode == "level-success")
 		{
 			if (game.currentLevel.number  < levels.data.length -1)
