@@ -157,6 +157,7 @@ var entities =
 				entity.fullHealth = definition.fullHealth;
 				entity.shape = "rectangle";
 				entity.sprite = loader.loadImage("images/entities/" + entity.name + ".png");
+				entity.breakSound = game.breakSound[entity.name];
 				box2d.createRectangle(entity, definition);
 				break;
 				
@@ -174,6 +175,7 @@ var entities =
 				entity.fullHealth = definition.fullHealth;
 				entity.sprite = loader.loadImage("images/entities/" + entity.name + ".png");
 				entity.shape = definition.shape;
+				entity.bounceSound = game.bounceSound;
 				
 				if (definition.shape == "circle")
 				{
