@@ -821,6 +821,38 @@ var game =
 		// load the next level in the array
 		levels.load(game.currentLevel.number + 1);
 	},
+	
+	startBackgroundMusic : function()
+	{
+		var toggleImage = $("#togglemusic")[0];
+		game.backgroundMusic.play();
+		toggleImage.src = "images/icons/sound.png"
+	},
+	
+	stopBackgroundMusic : function()
+	{
+		var toggleImage = $("#togglemusic")[0];
+		toggleImage.src = "images/icons/nosound.png";
+		game.backgroundMusic.pause();
+		// returns to the begining of the song
+		game.backgroundMusic.currentTime = 0;
+	},
+	
+	toggleBackgroundMusic : function()
+	{
+		var toggleImage = $('#toggleMusic')[0];
+		
+		if (game.backgroundMusic.paused)
+		{
+			game.backgroundMusic.play();
+			toggleImage.src = "images/icons/sound.png";
+		}
+		else
+		{
+			game.backgroundMusic.pause();
+			$("#togglemusic")[0].src = "images/icons/nosound.png";
+		}
+	}
 }
 
 // an object for stroing data about the levels in the game
