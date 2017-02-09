@@ -724,6 +724,42 @@ var game =
 		
 		$('#endingscreen').show();
 	},
+	
+	drawSlingshotBand : function()
+	{
+		// "rgb(68, 31, 11)" is a dark brown colour
+		game.context.strokeStyle = "rgb(68, 31, 11)";
+		game.context.lineWidth = 6;
+		
+		// calculate the angle and position the band would need to be drawn at by using the heros offset from
+		// the slingshot to find the angle is was draged at and its radius
+		var heroRadius = game.currentHero.GetUserData().radius;
+		var heroX = game.currentHero.GetPosition().x * box2d.scale;
+		var heroY = game.currentHero.GetPosition().y * box2d.scale;
+		
+		// atan2 is the angle between the posative x axis and the given coordanets
+		var angle = Math.atan2(game.slingshotX + (50 - game.offsetLeft), game.slingshotY + 25);
+		
+		var heroFarEdgeX = heroX - (heroRadius * Math.cos(angle));
+		var heroFarEdgeY = heroY - (heroRadius * Math.sin(angle));
+		
+		// begin drawing the back of the slingshot band
+		game.context.beginPath();
+		game.context.moveTo(game.slingshotX + (50 - game.offsetLeft), game.slingshotY + 25);
+		
+		game.context.lineTo(heroX - game.offsetLeft, heroY);
+		game.context.stroke();
+		
+		// draw the hero after the back of the back of the band but before it's frount
+		entities.draw(game.currentHero.GetUserData(), game.currentHero.GetPosition(), game.currentHero.GetAngle());
+		
+		// move the canvas to the edge of the hero and draw a line back to the slingshot
+		game.context.beginPath();
+		game.context.moveTo(heroFarEdgeX - game.offsetLeft, heroFarEdgeY);
+		
+		game.context.lineTo((game.slingshotX - game.offsetLeft) + 10, game.slingshotY + 30);
+		game.context.stroke();
+	}
 }
 
 // an object for stroing data about the levels in the game
