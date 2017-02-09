@@ -534,6 +534,11 @@ var game =
 						game.score += entity.calories;
 						$('#score').html('Score: ' + game.score);
 					}
+					
+					if (entity.blockBreakSound)
+					{
+						entity.blockBreakSound.play();
+					}
 				}
 				else
 				{
@@ -664,6 +669,8 @@ var game =
 				// fires the hero with a force preportional to the distance between the heros center and mouse pointer
 				var impulse = new b2Vec2((game.slingshotX + 35 - mouse.x - game.offsetLeft) * impulseScaleFactor, (game.slingshotY + 25 - mouse.y) * impulseScaleFactor);
 				game.currentHero.ApplyImpulse(impulse, game.currentHero.GetWorldCenter());
+				
+				game.slingshotFireSound.play();
 			}
         }
         
