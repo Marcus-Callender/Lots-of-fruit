@@ -765,7 +765,27 @@ var game =
 		
 		game.context.lineTo((game.slingshotX - game.offsetLeft) + 10, game.slingshotY + 30);
 		game.context.stroke();
-	}
+	},
+	
+	restartLevel : function()
+	{
+		// reset the data of the level
+		window.cancelAnimationFrame(game.animationFrame);
+		game.lastUpdateTime = undefined;
+		
+		// load the current level again
+		levels.load(game.currentLevel.number);
+	},
+	
+	startNextLevel : function()
+	{
+		// reset the data of the level
+		window.cancelAnimationFrame(game.animationFrame);
+		game.lastUpdateTime = undefined;
+		
+		// load the next level in the array
+		levels.load(game.currentLevel.number + 1);
+	},
 }
 
 // an object for stroing data about the levels in the game
