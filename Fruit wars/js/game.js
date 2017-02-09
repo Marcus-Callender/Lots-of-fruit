@@ -405,6 +405,21 @@ var game =
 		loader.init();
 		mouse.init();
 		
+		// load all the audio files
+		
+		// background music "Kindergarten" by Gurdonark
+		// http://ccmixter.org/files/gurdonark/26491 is licensed under a Creative Commons license
+		game.backgroundMusic = loader.loadSound('audio/gurdonark-kindergarten');
+		
+		game.slingshotFireSound = loader.loadSound('audio/released');
+		game.bounceSound = loader.loadSound('audio/bounce');
+		game.blockBreakSound = 
+		{
+			"glass" : loader.loadSound('audio/glassbreak'),
+			"wood" : loader.loadSound('audio/woodbreak')
+		};
+		
+		
 		// hide all game layers then display the game start screen
 		$('.gamelayer').hide();
 		$('#gamestartscreen').show();
