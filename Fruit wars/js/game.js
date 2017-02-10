@@ -844,12 +844,12 @@ var game =
 	
 	toggleBackgroundMusic : function()
 	{
-		var toggleImage = $('#toggleMusic')[0];
+		var toggleImage = $("#toggleMusic")[0];
 		
 		if (game.backgroundMusic.paused)
 		{
 			game.backgroundMusic.play();
-			toggleImage.src = "images/icons/sound.png";
+			$("#togglemusic")[0].src = "images/icons/sound.png";
 		}
 		else
 		{
