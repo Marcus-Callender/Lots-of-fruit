@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv = "Content-type" content = "text/html; charset = utf-8">
+		
+		<title>
+			Last Colony
+		</title>
+		
+		<script src = "JavaScript/common.js" type = "text/javascript" charset = "utf-8"></script>
+		<script src = "JavaScript/game.js" type = "text/javascript" charset = "utf-8"></script>
+		<script src = "JavaScript/jquery.min.js" type = "text/javascript" charset = "utf-8"></script>
+		<script src = "JavaScript/maps.js" type = "text/javascript" charset = "utf-8"></script>
+		<script src = "JavaScript/mouse.js" type = "text/javascript" charset = "utf-8"></script>
+		<script src = "JavaScript/singleplayer.js" type = "text/javascript" charset = "utf-8"></script>
+		
+		<link rel = "stylesheet" href = "style.css" type = "text/css" media = "screen" charset = "utf-8">
+	</head>
+	
+	<body>
+		<div id = "gamecontainer">
+			<div id = "gamestartscreen" class = "gamelayer">
+				<span id = "singleplayer" onclick = "singleplayer.start();">
+					Campgain
+				</span> <br>
+				
+				<span id = "multiplayer" onclick = "multiplayer.start();">
+					Multiplayer
+				</span> <br>
+			</div>
+			
+			<div id = "loadingscreen" class = "gamelayer">
+				<div id = "loadingmessage"></div>
+			</div>
+		</div>
+	</body>
+</html>
+
