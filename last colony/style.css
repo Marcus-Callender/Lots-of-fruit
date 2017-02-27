@@ -14,3 +14,44 @@
 	display : none;
 }
 
+/* game main menu screen*/
+#gamestartcreen
+{
+	padding-top : 320px;
+	text-align : left;
+	padding-left : 50px;
+	width : 50px;
+	height : 160px;
+}
+
+#gamestartcreen span
+{
+	margin : 20px;
+	font-family : 'Courier New', Courier, monospace;
+	font-size : 48px;
+	curcoe : pointer;
+	color : white;
+	text-shadow : -2px 0 purple, 0 2px purple, 2px 0 purple, 0 -2px purple;
+}
+
+#gamestartcreen span : hover
+{
+	color : yellow;
+}
+
+#loadingscreen
+{
+	background : rgba(100, 100, 100, 0.7);
+	z-index : 10;
+}
+
+#loadingmessage
+{
+	margin-top : 400px;
+	text-align : center;
+	height : 48px;
+	color : white;
+	background : url(images/loader.gif) no-repeat center;
+	font : 12px Ariel;
+}
+
