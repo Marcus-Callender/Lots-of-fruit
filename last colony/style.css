@@ -86,8 +86,8 @@
 	width : 98px;
 	height : 68px;
 	border-width : 0px;
-	backround-image : url(images/buttons.png);
-	backround-position : 0px -76px;
+	background-image : url(images/buttons.png);
+	background-position : 0px -76px;
 }
 
 #missionscreen #exitmission : disabled, #missionscreen #exitmission : active
