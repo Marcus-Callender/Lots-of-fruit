@@ -46,7 +46,7 @@ var singleplayer =
 		}
 		
 		// load and show the misssion briefing screen with the current missions briefing
-		$('#missionbriefing').html(level.briefing.replace(/\n/g, '<br><br>'));
+		$('#missonbriefing').html(level.briefing.replace(/\n/g, '<br><br>'));
 		$("#missionscreen").show();
 	},
 };

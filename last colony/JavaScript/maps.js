@@ -4,7 +4,7 @@ var maps =
 	"singlePlayer" : 
 	[
 		{
-			"name" : "Training Mission",
+			"name" : "Introduction", //"Training Mission",
 			"briefing" : "Learn  the basics of last coleny",
 			
 			"mapImage" : "images/maps/level-one-debug-grid.png",

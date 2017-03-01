@@ -29,7 +29,7 @@
 	margin : 20px;
 	font-family : 'Courier New', Courier, monospace;
 	font-size : 48px;
-	curcoe : pointer;
+	cursor : pointer;
 	color : white;
 	text-shadow : -2px 0 purple, 0 2px purple, 2px 0 purple, 0 -2px purple;
 }
@@ -61,7 +61,7 @@
 }
 
 #missionscreen #entermission
-{
+{	
 	position : absolute;
 	top : 79px;
 	left : 6px;
@@ -93,7 +93,7 @@
 #missionscreen #exitmission : disabled, #missionscreen #exitmission : active
 {
 	background-image : url(images/buttons.png);
-	background-position: -193px -76px;
+	background-position: -103px -76px;
 }
 
 #missionscreen #missionbriefing
