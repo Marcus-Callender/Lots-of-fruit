@@ -23,7 +23,7 @@ var singleplayer =
 	startCurrentLevel : function()
 	{
 		// load all the items for the current level
-		var level = maps.singlePlayer[singleplayer.currentLevel];
+		var level = maps.singleplayer[singleplayer.currentLevel];
 		
 		// prevent the player from entering th emission untill all the assets have been loaded
 		$("#entermission").attr("disabled", true);
@@ -46,7 +46,8 @@ var singleplayer =
 		}
 		
 		// load and show the misssion briefing screen with the current missions briefing
-		$('#missonbriefing').html(level.briefing.replace(/\n/g, '<br><br>'));
+		//$('#missonbriefing').html(level.briefing.replace(/\n/g, '<br><br>'));
+	    $('#missonbriefing').html(level.briefing.replace('\n','<br><br>'));    
 		$("#missionscreen").show();
 	},
 };

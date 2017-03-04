@@ -1,7 +1,7 @@
 // stores data about all the maps in the game
 var maps = 
 {
-	"singlePlayer" : 
+	"singleplayer" : 
 	[
 		{
 			"name" : "Introduction", //"Training Mission",
