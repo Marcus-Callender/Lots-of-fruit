@@ -42,7 +42,7 @@ var game =
 	start : function()
 	{
 		$('.gamelayer').hide();
-		$('gameinterfacescreen').show();
+		$('#gameinterfacescreen').show();
 		game.running = true;
 		game.refreshBackground = true;
 		
