@@ -31,6 +31,10 @@ var singleplayer =
 		game.currentMapImage = loader.loadImage(level.mapImage);
 		game.currentLevel = level;
 		
+		// places the offset to the level.start number of grid spaces
+		game.offsetX = level.startX * game.gridSize;
+		game.offsetY = level.startY * game.gridSize;
+		
 		// remove the block for entering the level once th eloader has finished loading the assets
 		if (loader.loaded)
 		{
