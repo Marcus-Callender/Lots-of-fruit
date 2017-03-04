@@ -50,5 +50,12 @@ var singleplayer =
 	    $('#missonbriefing').html(level.briefing.replace('\n','<br><br>'));    
 		$("#missionscreen").show();
 	},
+	
+	play : function()
+	{
+		game.drawingLoop();
+		game.animationInterval = setInterval(game.drawingLoop, game.animationTimeout);
+		game.start();
+	},
 };
 

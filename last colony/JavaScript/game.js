@@ -29,10 +29,10 @@ var game =
 		$('.gamelayer').hide();
 		$('#gamestartscreen').show();
 		
-		game.backgroundCanvas = document.getElementByID('gamebackgroundcanvas');
+		game.backgroundCanvas = document.getElementById('gamebackgroundcanvas');
 		game.backgroundContext = game.backgroundCanvas.getContext('2d');
 		
-		game.foregroundCanvas = document.GetElementByID('gameforegroundcanvas');
+		game.foregroundCanvas = document.getElementById('gameforegroundcanvas');
 		game.foregroundContext = game.foregroundCanvas.getContext('2d');
 		
 		game.canvasWidth = game.backgroundCanvas.width;
@@ -52,7 +52,7 @@ var game =
 	animation : function()
 	{
 		// To be implemented
-	}
+	},
 	
 	drawingLoop : function()
 	{
@@ -73,6 +73,6 @@ var game =
 			// call the drawing loop for the next frame using requestAnimationFrame
 			requestAnimationFrame(game.drawingLoop);
 		}
-	}
+	},
 }
 
