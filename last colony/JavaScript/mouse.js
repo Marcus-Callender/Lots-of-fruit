@@ -22,6 +22,102 @@ var mouse =
 	
 	isMouseInCanvas : false,
 	
+	init : function()
+	{
+		var $mouseCanvas = $("gameforegroundcanvas");
+		
+		$mouseCanvas.mousemove(
+			function(ev)
+			{
+				var offset = $mouseCanvas.offset();
+				
+				this.canvasX = ev.pageX - offset.left;
+				this.canvasY = ev.pageY - offset.top;
+				
+				this.calculateMouseCoordinites();
+				
+				if (this.isLeftMouseButtonDown)
+				{
+					// if the mouse has been moved more than 4 pixels (x or y) enable drag select
+					if (Math.abs(this.dragX - this.gameX) > 4 || Math.abs(this.dragY - this.gameY) > 4)
+					{
+						this.dragSelect = true;
+					}
+					else
+					{
+						this.dragSelect = false;
+					}
+				}
+			}
+		);
+		
+		$mouseCanvas.click(
+			function(ev)
+			{
+				this.click(ev, false);
+				thiss.dragSelect = false;
+				
+				return false;
+			}
+		);
+		
+		$mouseCanvas.mousedown(
+			function(ev)
+			{
+				if (ev.whichMouseButton == 1)
+				{
+					this.isLeftMouseButtonDown = true;
+					
+					this.dragX = this.gameX;
+					this.dragY = this.gameY;
+					
+					ev.preventDefault();
+				}
+				
+				return false;
+			}
+		);
+		
+		$mouseCanvas.bind('contextmenu', 
+			function()
+			{
+				this.click(ev, true);
+				
+				return false;
+			}
+		);
+		
+		$mouseCanvas.mouseup(
+			function()
+			{
+				var shiftPressed = ev.shiftKey;
+				
+				if (ev.whichMouseButton == 1)
+				{
+					this.isLeftMouseButtonDown = false;
+					this.dragSelect = false;
+				}
+				
+				return false;
+			}
+		);
+		
+		$mouseCanvas.mouseleave(
+			function()
+			{
+				this.isMouseInCanvas = false;
+			}
+		);
+		
+		$mouseCanvas.mouseenter(
+			function(ev)
+			{
+				this.isLeftMouseButtonDown = false;
+				this.isMouseInCanvas = true;
+			}
+		);
+	},
+	
 	click : function(ev, rightClick)
 	{
 		// TODO implement
