@@ -55,7 +55,7 @@ var mouse =
 			function(ev)
 			{
 				mouse.click(ev, false);
-				thiss.dragSelect = false;
+				this.dragSelect = false;
 				
 				return false;
 			}
@@ -89,7 +89,7 @@ var mouse =
 		);
 		
 		$mouseCanvas.mouseup(
-			function()
+			function(ev)
 			{
 				var shiftPressed = ev.shiftKey;
 				

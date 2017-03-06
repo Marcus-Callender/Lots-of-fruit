@@ -124,6 +124,8 @@ var game =
 			game.refreshBackground = false;
 		}
 		
+		game.foregroundContext.clearRect(0, 0, game.canvasWidth, game.canvasHeight);
+		
 		mouse.drawSelectBox();
 		
 		if (game.running)
