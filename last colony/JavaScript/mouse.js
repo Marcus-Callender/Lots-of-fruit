@@ -24,11 +24,7 @@ var mouse =
 	
 	init : function()
 	{
-		alert("mouse init one");
-		
 		var $mouseCanvas = $("#gameforegroundcanvas");
-		
-		alert("mouse init two");
 		
 		$mouseCanvas.mousemove(
 			function(ev)
@@ -132,8 +128,6 @@ var mouse =
 				mouse.isMouseInCanvas = true;
 			}
 		);
-		
-		alert("mouse init end");
 	},
 	
 	click : function(ev, rightClick)
@@ -159,8 +153,6 @@ var mouse =
 	
 	calculateMouseCoordinites : function()
 	{
-		alert("Finding mouse coordanites");
-		
 		mouse.gameX = mouse.canvasX + game.offsetX;
 		mouse.gameY = mouse.canvasY + game.offsetY;
 		
