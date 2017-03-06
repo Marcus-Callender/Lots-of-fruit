@@ -65,7 +65,6 @@ var game =
 		// if the mouse is not inside the canvas leave imidietly
 		if (!mouse.isMouseInCanvas)
 		{
-			console.log("mosue out");
 			return;
 		}
 		

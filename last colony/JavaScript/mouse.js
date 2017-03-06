@@ -26,7 +26,7 @@ var mouse =
 	{
 		alert("mouse init one");
 		
-		var $mouseCanvas = $("gameforegroundcanvas");
+		var $mouseCanvas = $("#gameforegroundcanvas");
 		
 		alert("mouse init two");
 		
