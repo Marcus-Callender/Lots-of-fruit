@@ -65,40 +65,41 @@ var game =
 		// if the mouse is not inside the canvas leave imidietly
 		if (!mouse.isMouseInCanvas)
 		{
+			console.log("mosue out");
 			return;
 		}
 		
-		if (mouse.canvasX <= this.startPanningThreshold)
+		if (mouse.canvasX <= game.startPanningThreshold)
 		{
-			if (this.offsetX >= this.panningSpeed)
+			if (game.offsetX >= game.panningSpeed)
 			{
-				this.refreshBackground = true;
-				this.offsetX -= this.panningSpeed;
+				game.refreshBackground = true;
+				game.offsetX -= game.panningSpeed;
 			}
 		}
-		else if (mouse.canvasX >= this.canvasWidth - this.startPanningThreshold)
+		else if (mouse.canvasX >= game.canvasWidth - game.startPanningThreshold)
 		{
-			if (this.offsetX + this.canvasWidth  + this.panningSpeed <= this.currentMapImage.width)
+			if (game.offsetX + game.canvasWidth  + game.panningSpeed <= game.currentMapImage.width)
 			{
-				this.refreshBackground = true;
-				this.offsetX += this.panningSpeed;
+				game.refreshBackground = true;
+				game.offsetX += game.panningSpeed;
 			}
 		}
 		
-		if (mouse.canvasY <= this.startPanningThreshold)
+		if (mouse.canvasY <= game.startPanningThreshold)
 		{
-			if (this.offsetY >= this.panningSpeed)
+			if (game.offsetY >= game.panningSpeed)
 			{
-				this.refreshBackground = true;
-				this.offsetY -= this.panningSpeed;
+				game.refreshBackground = true;
+				game.offsetY -= game.panningSpeed;
 			}
 		}
-		else if (mouse.canvasY >= this.canvasHeight - this.startPanningThreshold)
+		else if (mouse.canvasY >= game.canvasHeight - game.startPanningThreshold)
 		{
-			if (this.offsetY + this.canvasHeight  + this.panningSpeed <= this.currentMapImage.height)
+			if (game.offsetY + game.canvasHeight  + game.panningSpeed <= game.currentMapImage.height)
 			{
-				this.refreshBackground = true;
-				this.offsetY += this.panningSpeed;
+				game.refreshBackground = true;
+				game.offsetY += game.panningSpeed;
 			}
 		}
 		

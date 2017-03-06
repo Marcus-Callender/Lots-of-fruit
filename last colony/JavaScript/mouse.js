@@ -24,28 +24,32 @@ var mouse =
 	
 	init : function()
 	{
+		alert("mouse init one");
+		
 		var $mouseCanvas = $("gameforegroundcanvas");
+		
+		alert("mouse init two");
 		
 		$mouseCanvas.mousemove(
 			function(ev)
 			{
 				var offset = $mouseCanvas.offset();
 				
-				this.canvasX = ev.pageX - offset.left;
-				this.canvasY = ev.pageY - offset.top;
+				mouse.canvasX = ev.pageX - offset.left;
+				mouse.canvasY = ev.pageY - offset.top;
 				
-				this.calculateMouseCoordinites();
+				mouse.calculateMouseCoordinites();
 				
-				if (this.isLeftMouseButtonDown)
+				if (mouse.isLeftMouseButtonDown)
 				{
 					// if the mouse has been moved more than 4 pixels (x or y) enable drag select
-					if (Math.abs(this.dragX - this.gameX) > 4 || Math.abs(this.dragY - this.gameY) > 4)
+					if (Math.abs(mouse.dragX - mouse.gameX) > 4 || Math.abs(mouse.dragY - mouse.gameY) > 4)
 					{
-						this.dragSelect = true;
+						mouse.dragSelect = true;
 					}
 					else
 					{
-						this.dragSelect = false;
+						mouse.dragSelect = false;
 					}
 				}
 			}
@@ -64,12 +68,13 @@ var mouse =
 		$mouseCanvas.mousedown(
 			function(ev)
 			{
-				if (ev.whichMouseButton == 1)
+				//if (ev.whichMouseButton == 1)
+				if (ev.which == 1)
 				{
-					this.isLeftMouseButtonDown = true;
+					mouse.isLeftMouseButtonDown = true;
 					
-					this.dragX = this.gameX;
-					this.dragY = this.gameY;
+					mouse.dragX = mouse.gameX;
+					mouse.dragY = mouse.gameY;
 					
 					ev.preventDefault();
 				}
@@ -92,10 +97,11 @@ var mouse =
 			{
 				var shiftPressed = ev.shiftKey;
 				
-				if (ev.whichMouseButton == 1)
+				//if (ev.whichMouseButton == 1)
+				if (ev.which == 1)
 				{
-					this.isLeftMouseButtonDown = false;
-					this.dragSelect = false;
+					mouse.isLeftMouseButtonDown = false;
+					mouse.dragSelect = false;
 				}
 				
 				return false;
@@ -105,17 +111,29 @@ var mouse =
 		$mouseCanvas.mouseleave(
 			function()
 			{
-				this.isMouseInCanvas = false;
+				if (mouse.isMouseInCanvas)
+				{
+					console.log("mouse left canvas");
+				}
+				
+				mouse.isMouseInCanvas = false;
 			}
 		);
 		
 		$mouseCanvas.mouseenter(
 			function(ev)
 			{
-				this.isLeftMouseButtonDown = false;
-				this.isMouseInCanvas = true;
+				if (!mouse.isMouseInCanvas)
+				{
+					console.log("mouse entered canvas");
+				}
+				
+				mouse.isLeftMouseButtonDown = false;
+				mouse.isMouseInCanvas = true;
 			}
 		);
+		
+		alert("mouse init end");
 	},
 	
 	click : function(ev, rightClick)
@@ -141,11 +159,13 @@ var mouse =
 	
 	calculateMouseCoordinites : function()
 	{
-		this.gameX = this.canvasX + game.offsetX;
-		this.gameY = this.canvasY + game.offsetY;
+		alert("Finding mouse coordanites");
 		
-		this.gridX = Math.floor((this.gameX)/ game.gridSize);
-		this.gridY = Math.floor((this.gameY)/ game.gridSize);
+		mouse.gameX = mouse.canvasX + game.offsetX;
+		mouse.gameY = mouse.canvasY + game.offsetY;
+		
+		mouse.gridX = Math.floor((mouse.gameX) / game.gridSize);
+		mouse.gridY = Math.floor((mouse.gameY) / game.gridSize);
 	},
 }
 
