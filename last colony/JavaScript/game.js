@@ -21,10 +21,16 @@ var game =
 	offsetX : 0,
 	offsetY : 0,
 	
+	// the distance the mouse needs to be from the edge of the canvas for the panning to start
+	startPanningThreshold : 60,
+	panningSpeed : 10,
+	
 	init : function()
 	{
 		// preload necicery assets
 		loader.init();
+		
+		mouse.init();
 		
 		$('.gamelayer').hide();
 		$('#gamestartscreen').show();
@@ -54,9 +60,59 @@ var game =
 		// To be implemented
 	},
 	
+	handlePanning : function()
+	{
+		// if the mouse is not inside the canvas leave imidietly
+		if (!mouse.isMouseInCanvas)
+		{
+			return;
+		}
+		
+		if (mouse.canvasX <= this.startPanningThreshold)
+		{
+			if (this.offsetX >= this.panningSpeed)
+			{
+				this.refreshBackground = true;
+				this.offsetX -= this.panningSpeed;
+			}
+		}
+		else if (mouse.canvasX >= this.canvasWidth - this.startPanningThreshold)
+		{
+			if (this.offsetX + this.canvasWidth  + this.panningSpeed <= this.currentMapImage.width)
+			{
+				this.refreshBackground = true;
+				this.offsetX += this.panningSpeed;
+			}
+		}
+		
+		if (mouse.canvasY <= this.startPanningThreshold)
+		{
+			if (this.offsetY >= this.panningSpeed)
+			{
+				this.refreshBackground = true;
+				this.offsetY -= this.panningSpeed;
+			}
+		}
+		else if (mouse.canvasY >= this.canvasHeight - this.startPanningThreshold)
+		{
+			if (this.offsetY + this.canvasHeight  + this.panningSpeed <= this.currentMapImage.height)
+			{
+				this.refreshBackground = true;
+				this.offsetY += this.panningSpeed;
+			}
+		}
+		
+		if (this.refreshBackground)
+		{
+			// update the mouse values if the background has changed location
+			mouse.calculateMouseCoordinites();
+		}
+	},
+	
 	drawingLoop : function()
 	{
 		// handle panning the camera
+		game.handlePanning();
 		
 		// if the background needs to be refreshed draw the image at its new position then agnowlage it has been refreshed
 		// this reduces the workload of constantly redrawing the background
@@ -67,6 +123,8 @@ var game =
 				
 			game.refreshBackground = false;
 		}
+		
+		mouse.drawSelectBox();
 		
 		if (game.running)
 		{

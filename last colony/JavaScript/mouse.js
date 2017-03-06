@@ -54,7 +54,7 @@ var mouse =
 		$mouseCanvas.click(
 			function(ev)
 			{
-				this.click(ev, false);
+				mouse.click(ev, false);
 				thiss.dragSelect = false;
 				
 				return false;
@@ -81,7 +81,7 @@ var mouse =
 		$mouseCanvas.bind('contextmenu', 
 			function()
 			{
-				this.click(ev, true);
+				mouse.click(ev, true);
 				
 				return false;
 			}
@@ -125,7 +125,7 @@ var mouse =
 	
 	drawSelectBox : function()
 	{
-		if (mouse.dragSelect)
+		if (this.dragSelect)
 		{
 			// start drawing from the top left of the selct box
 			var x = Math.min(this.gameX, this.dragX);
