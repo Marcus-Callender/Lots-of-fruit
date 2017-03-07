@@ -130,7 +130,7 @@ function loadItem(name)
 		var createdImageCount = item.spriteImages[z].count;
 		var createdDirectionCount = item.spriteImages[z].directions;
 		
-		// if multiple sprites are in an animation it loads them as a group inside a loop
+		// if the sprite has multiple directions these are loaded as a  group inside the for loop
 		if (createdDirectionCount)
 		{
 			for (var x = 0; x < createdDirectionCount; x++)
@@ -168,11 +168,13 @@ function addItem(itemData)
 	var item = {};
 	var name = itemData.name;
 	
+	// applies the default values to the object
 	$.extend(item, this.defaults);
 	$.extend(item, this.list[name]);
 	
 	item.life = item.hp;
 	
+	// applies any additional data passed as a paramiter
 	$.extend(item, itemData);
 	
 	return item;
