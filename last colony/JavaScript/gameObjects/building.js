@@ -18,13 +18,13 @@ var building =
 			buildableGrid :
 			[
 				[1, 1],
-				[1, 1]
+				[1, 1],
 			],
 			
 			passableGrid :
 			[
 				[1, 1],
-				[1, 1]
+				[1, 1],
 			],
 			
 			// data for the objects in game usefulness

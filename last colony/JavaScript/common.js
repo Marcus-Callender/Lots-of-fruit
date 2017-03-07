@@ -109,3 +109,57 @@ var loader =
 		}
 	}
 }
+
+function loadItem(name)
+{
+	var item = this.list[name];
+	
+	// if the nesacery sprite array already exsists there is no need to create it again
+	if (item.spriteArray)
+	{
+		return;
+	}
+	
+	// creates default data to use
+	item.spriteSheet = loader.loadImage('images/' + this.default.type + '/' + name + '.png');
+	item.spriteArray = [];
+	item.spriteCount = 0;
+	
+	for (var z = 0; z < item.spriteImages.length; z++)
+	{
+		var createdImageCount = item.spriteImages[z].count;
+		var createdDirectionCount = item.spriteImages[z].directions;
+		
+		// if multiple sprites are in an animation it loads them as a group inside a loop
+		if (createdDirectionCount)
+		{
+			for (int x = 0; x < createdDirectionCount; x++)
+			{
+				var createdImageName = item.spriteImages[z].name + " : " + x;
+				
+				item.spriteArray[createdImageName] = 
+				{
+					name : createdImageName,
+					count : createdImageCount,
+					offset : item.spriteCount,
+				};
+				
+				item.spriteCount += createdImageCount;
+			};
+		}
+		else
+		{
+			var createdImageName = item.spriteImage[z].name;
+			
+			item.spriteArray[createdImageName] =
+			{
+				name : createdImageName,
+				count : createdImageCount,
+				offset : item.spriteCount,
+			};
+			
+			item.spriteCount += createdImageCount;
+		}
+	}
+}
+
