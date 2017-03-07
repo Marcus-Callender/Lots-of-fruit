@@ -133,7 +133,7 @@ function loadItem(name)
 		// if multiple sprites are in an animation it loads them as a group inside a loop
 		if (createdDirectionCount)
 		{
-			for (int x = 0; x < createdDirectionCount; x++)
+			for (var x = 0; x < createdDirectionCount; x++)
 			{
 				var createdImageName = item.spriteImages[z].name + " : " + x;
 				
