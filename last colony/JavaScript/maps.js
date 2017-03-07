@@ -10,6 +10,23 @@ var maps =
 			"mapImage" : "images/maps/level-one-debug-grid.png",
 			"startX" : 4,
 			"startY" : 4,
+			
+			/* arrays to store the entities */
+			"requirements" :
+			{
+				"buildings" : ["base"],
+				"vehicles" : [],
+				"aircraft" : [],
+				"terrain" : [],
+			},
+			
+			/* objects to be added on loading the level */
+			"items" :
+			[
+				{"type" : "building", "name" : "base", "x" : 11, "y" : 14, "team" : "blue"},
+				{"type" : "building", "name" : "base", "x" : 12, "y" : 16, "team" : "green"},
+				{"type" : "building", "name" : "base", "x" : 15, "y" : 15, "team" : "green", "life" : 50},
+			],
 		},
 	]
 };
