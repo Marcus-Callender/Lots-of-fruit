@@ -11,7 +11,7 @@ var maps =
 			"startX" : 4,
 			"startY" : 4,
 			
-			/* arrays to store the entities */
+			/* what types of objects will be preloaded */
 			"requirements" :
 			{
 				"buildings" : ["base"],
@@ -20,11 +20,12 @@ var maps =
 				"terrain" : [],
 			},
 			
-			/* objects to be added on loading the level */
+			/* details on the objects that will be pre loaded */
 			"items" :
 			[
 				{"type" : "building", "name" : "base", "x" : 11, "y" : 14, "team" : "blue"},
 				{"type" : "building", "name" : "base", "x" : 12, "y" : 16, "team" : "green"},
+				// another green building, whos life will start reduced
 				{"type" : "building", "name" : "base", "x" : 15, "y" : 15, "team" : "green", "life" : 50},
 			],
 		},
