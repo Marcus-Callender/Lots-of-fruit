@@ -163,3 +163,18 @@ function loadItem(name)
 	}
 }
 
+function addItem(itemData)
+{
+	var item = {};
+	var name = itemData.name;
+	
+	$.extend(item, this.defaults);
+	$.extend(item, this.list[name]);
+	
+	item.life = item.hp;
+	
+	$.extend(item, itemData);
+	
+	return item;
+}
+
