@@ -35,6 +35,36 @@ var singleplayer =
 		game.offsetX = level.startX * game.gridSize;
 		game.offsetY = level.startY * game.gridSize;
 		
+		// clear all the data
+		game.resetArrays();
+		
+		for (var type in level.requirements)
+		{
+			var requirementsArray = level.requiremets[type];
+			
+			for (var z = 0; z < requirementsArray.length; z++)
+			{
+				var name = requirementsArray[z];
+				
+				if (window[type])
+				{
+					// loads the data using the appropriate load method
+					window[type].load(name)
+				}
+				else
+				{
+					console.log('Error: failed to load asset of type: ' + type);
+				}
+			};
+		}
+		
+		for (var z = level.items.length - 1; z >= 0; z--)
+		{
+			// adds all of the assets that have just been loaded to the game object
+			var itemDetails = level.items[z];
+			game.add(itemDetails);
+		}
+		
 		// remove the block for entering the level once th eloader has finished loading the assets
 		if (loader.loaded)
 		{
