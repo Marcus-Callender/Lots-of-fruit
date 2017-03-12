@@ -55,6 +55,89 @@ var game =
 		game.drawingLoop();
 	},
 	
+	reset : function()
+	{
+		game.counter = 1;
+		
+		game.items = [];
+		
+		game.sortedItems = [];
+		
+		game.building = [];
+		game.vehicle = [];
+		game.aircraft = [];
+		game.terrain = [];
+		
+		game.triggeredEvents = [];
+		game.selectedItems = [];
+		
+		game.sortedItems = [];
+	},
+	
+	add : function(itemData)
+	{
+		// asign the item with a uniqueID
+		if (!itemData.ID)
+		{
+			itemData.ID = game.counter;
+			game.counter++;
+		}
+		
+		// a refrence to the rrtuen value of adding the item to the window
+		var itemRef = window[itemData.type].add(itemData);
+		
+		// store this item refrence in a genral array for use later
+		game.items.push(itemRef);
+		
+		// also send a refrence to a spesific array array for more spsific uses
+		game[itemRef.type].push(itemRef);
+		
+		return itemRef;
+	},
+	
+	remove : function(itemData)
+	{
+		// unselect the object to ensure the player can't contol a non existant object
+		itemData.selected = false;
+		
+		// loop over the selected items array
+		for (var z = 0; z < game.selectedItems.length; z++)
+		{
+			// compare the current items ID and the item to removes ID, if they match they are the same item
+			if (game.selectedItems[z].ID == itemData.ID)
+			{
+				// if the IDs match remove that item and exit the loop
+				game.selectedItems.splice(z, 1);
+				break;
+			}
+		};
+
+		// repeat the loop fore the gental items array
+		for (var z = 0; z < game.items.length; z++)
+		{
+			// compare the current items ID and the item to removes ID, if they match they are the same item
+			if (game.items[z].ID == itemData.ID)
+			{
+				// if the IDs match remove that item and exit the loop
+				game.items.splice(z, 1);
+				break;
+			}
+		};
+		
+		// repeat again for the type spsific array it would be found in
+		
+		for (var z = 0; z < game[itemData.type].length; z++)
+		{
+			// compare the current items ID and the item to removes ID, if they match they are the same item
+			if (game[itemData.type][z].ID == itemData.ID)
+			{
+				// if the IDs match remove that item and exit the loop
+				game[itemData.type].splice(z, 1);
+				break;
+			}
+		};
+	},
+	
 	animation : function()
 	{
 		// To be implemented

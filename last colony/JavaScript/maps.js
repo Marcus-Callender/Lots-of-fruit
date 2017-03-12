@@ -14,8 +14,8 @@ var maps =
 			/* what types of objects will be preloaded */
 			"requirements" :
 			{
-				"buildings" : ["base"],
-				"vehicles" : [],
+				"building" : ["base"],
+				"vehicle" : [],
 				"aircraft" : [],
 				"terrain" : [],
 			},

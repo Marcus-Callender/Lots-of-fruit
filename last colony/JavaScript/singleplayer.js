@@ -36,11 +36,17 @@ var singleplayer =
 		game.offsetY = level.startY * game.gridSize;
 		
 		// clear all the data
-		game.resetArrays();
+		game.reset();
 		
 		for (var type in level.requirements)
 		{
-			var requirementsArray = level.requiremets[type];
+			console.log("Requirements: " + level.requirements);
+			console.log("Type: " + type);
+			console.log("Requirement type: " + level.requirements[type]);
+			
+			var requirementsArray = level.requirements[type];
+			
+			console.log("requirements array: " + requirementsArray);
 			
 			for (var z = 0; z < requirementsArray.length; z++)
 			{

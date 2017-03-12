@@ -121,7 +121,7 @@ function loadItem(name)
 	}
 	
 	// creates default data to use
-	item.spriteSheet = loader.loadImage('images/' + this.default.type + '/' + name + '.png');
+	item.spriteSheet = loader.loadImage('images/' + this.defaults.type + '/' + name + '.png');
 	item.spriteArray = [];
 	item.spriteCount = 0;
 	
@@ -149,7 +149,7 @@ function loadItem(name)
 		}
 		else
 		{
-			var createdImageName = item.spriteImage[z].name;
+			var createdImageName = item.spriteImages[z].name;
 			
 			item.spriteArray[createdImageName] =
 			{
