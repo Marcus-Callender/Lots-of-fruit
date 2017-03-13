@@ -23,7 +23,7 @@ var game =
 	
 	// the distance the mouse needs to be from the edge of the canvas for the panning to start
 	startPanningThreshold : 60,
-	panningSpeed : 10,
+	panningSpeed : 1,
 	
 	init : function()
 	{

@@ -107,8 +107,8 @@
 	left : 20px;
 	width : 410px;
 	height : 300px;
-	/*color : rgb(130, 150, 162);*/
-	color : purple;
+	color : rgb(130, 150, 162);
+	/*color : purple;*/
 	font-size : 13px;
     /*font-family: ‘Courier New‘, Courier, monospace;*/
 	font-family : 'Courier New', Courier, monospace;
@@ -127,7 +127,7 @@
 	padding-left : 10px;
 	top : 5px;
 	left : 5px;
-	width : 450;
+	width : 450px;
 	height : 60px;
 	color : rgb(130, 150, 162);
 	overflow : hidden;
