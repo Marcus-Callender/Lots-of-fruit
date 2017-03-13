@@ -138,9 +138,24 @@ var game =
 		};
 	},
 	
-	animation : function()
+	animate : function()
 	{
-		// To be implemented
+		// call the animate function for all the objects registered with the game
+		for (var z = 0; z < game.items.length; z++)
+		{
+			game.items[z].animate();
+		};
+		
+		// sort the objects in the game based on there x/y coordenets
+		// TODO : figure out what this code dose as I don't yet understand it.
+		game.sortedItems = $.extend([], game.items);
+		
+		game.sortedItems.sort(
+			function(one, two)
+			{
+				return two.y - one.y + ((two.y == one.y) ? (one.x - two.x) : 0);
+			}
+		);
 	},
 	
 	handlePanning : function()
@@ -208,6 +223,12 @@ var game =
 		}
 		
 		game.foregroundContext.clearRect(0, 0, game.canvasWidth, game.canvasHeight);
+		
+		// call the draw function on all the objects registered with the game
+		for (var z = 0; z < game.sortedItems.length; z++)
+		{
+			game.sortedItems[z].draw();
+		};
 		
 		mouse.drawSelectBox();
 		

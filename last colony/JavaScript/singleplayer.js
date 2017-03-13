@@ -93,9 +93,9 @@ var singleplayer =
 	
 	play : function()
 	{
-		game.drawingLoop();
+		game.animate();
 		
-		game.animationInterval = setInterval(game.drawingLoop, game.animationTimeout);
+		game.animationInterval = setInterval(game.animate, game.animationTimeout);
 		
 		game.start();
 	},

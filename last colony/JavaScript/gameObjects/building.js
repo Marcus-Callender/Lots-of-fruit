@@ -36,12 +36,15 @@ var building =
 			spriteImages :
 			[
 				{name : "normal", count : 4},
-				{name : "damaged", count : 4},
-				{name : "building", count : 4},
+				{name : "damaged", count : 1},
+				{name : "building", count : 3},
 			],
 			
 		},
 	},
+	
+	load : loadItem,
+	add : addItem,
 	
 	defaults :
 	{
@@ -82,10 +85,11 @@ var building =
 			switch(this.action)
 			{
 				case "stand" :
-					this.imageArray = this.spriteImages[this.lifeCode];
+					this.imageList = this.spriteArray[this.lifeState];
 					this.imageOffset = this.imageList.offset + this.animationIndex;
 					this.animationIndex++;
 					
+					// once the animation has finished it is reverted back to the begining to loop it
 					if (this.animationIndex >= this.imageList.count)
 					{
 						this.animationIndex = 0;
@@ -116,15 +120,12 @@ var building =
 			var y = ((this.y * game.gridSize) - game.offsetY) - this.pixelOffsetY;
 			
 			// decides which row to read the sprites from 0 = blue 1 = green
-			var colourIndex = (this.team) ? 0 : 1;
+			var colourIndex = (this.team == "blue") ? 0 : 1;
 			var colourOffset = colourIndex * this.pixelHeight;
 			
 			game.foregroundContext.drawImage(this.spriteSheet, this.imageOffset * this.pixelWidth,
 				colourOffset, this.pixelWidth, this.pixelHeight, x, y, this.pixelWidth, this.pixelHeight);
 		},
 	},
-	
-	load : loadItem,
-	add : addItem,
 }
 
