@@ -26,7 +26,7 @@ var maps =
 				{"type" : "building", "name" : "base", "x" : 11, "y" : 14, "team" : "blue"},
 				{"type" : "building", "name" : "base", "x" : 12, "y" : 16, "team" : "green"},
 				// another green building, whos life will start reduced
-				{"type" : "building", "name" : "base", "x" : 15, "y" : 15, "team" : "green", "life" : 50},
+				{"type" : "building", "name" : "base", "x" : 15, "y" : 15, "team" : "green", "hp" : 50},
 			],
 		},
 	]

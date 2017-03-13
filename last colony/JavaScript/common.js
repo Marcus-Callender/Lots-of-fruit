@@ -172,7 +172,7 @@ function addItem(itemData)
 	$.extend(item, this.defaults);
 	$.extend(item, this.list[name]);
 	
-	item.life = item.hp;
+	item.hp = item.baseHP;
 	
 	// applies any additional data passed as a paramiter
 	$.extend(item, itemData);

@@ -29,7 +29,7 @@ var building =
 			
 			// data for the objects in game usefulness
 			sight : 3,
-			hitPoints : 500,
+			baseHP : 500,
 			cost : 5000,
 			
 			// data for the animations the building has
@@ -61,13 +61,66 @@ var building =
 		// default function for animating any building
 		animate : function()
 		{
+			// checks if the entity has no health and should be removed
+			if (this.hp <= 0)
+			{
+				this.lifeState = "dead";
+				game.remove(this);
+				return;
+			}
 			
+			// display the normal state if the buildings life is above 40%
+			if (this.hp > this.baseHP * 0.4)
+			{
+				this.lifeState = "normal";
+			}
+			else
+			{
+				this.lifeState = "damaged";
+			}
+			
+			switch(this.action)
+			{
+				case "stand" :
+					this.imageArray = this.spriteImages[this.lifeCode];
+					this.imageOffset = this.imageList.offset + this.animationIndex;
+					this.animationIndex++;
+					
+					if (this.animationIndex >= this.imageList.count)
+					{
+						this.animationIndex = 0;
+					}
+					
+					break;
+					
+				case "building" :
+					this.imageList = this.spriteArray["building"];
+					this.imageOffset = this.imageList.offset + this.animationIndex;
+					this.animationIndex++;
+					
+					// if the building animation has finished the animation reverts to normal
+					if (this.animationIndex >= this.imageList.count)
+					{
+						this.animationIndex = 0;
+						this.action =  "stand";
+					}
+					
+					break;
+			}
 		},
 		
 		// default function for drawing any building
 		draw : function()
 		{
+			var x = ((this.x * game.gridSize) - game.offsetX) - this.pixelOffsetX;
+			var y = ((this.y * game.gridSize) - game.offsetY) - this.pixelOffsetY;
 			
+			// decides which row to read the sprites from 0 = blue 1 = green
+			var colourIndex = (this.team) ? 0 : 1;
+			var colourOffset = colourIndex * this.pixelHeight;
+			
+			game.foregroundContext.drawImage(this.spriteSheet, this.imageOffset * this.pixelWidth,
+				colourOffset, this.pixelWidth, this.pixelHeight, x, y, this.pixelWidth, this.pixelHeight);
 		},
 	},
 	
