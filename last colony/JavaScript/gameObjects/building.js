@@ -42,9 +42,9 @@ var building =
 			
 		},
 		
-		"startport" :
+		"starport" :
 		{
-			name : "startport",
+			name : "starport",
 			
 			// data required to draw the object from the sprite sheet
 			pixelWidth : 40,
@@ -78,7 +78,7 @@ var building =
 			spriteImages :
 			[
 				{name : "teleport", count : 9},
-				{name : "closing", count : 18},
+				{name : "closeing", count : 18},
 				{name : "normal", count : 4},
 				{name : "damaged", count : 1},
 			],
@@ -186,34 +186,19 @@ var building =
 					// change the animation to standing when the animation has finished
 					if (this.animationIndex >= this.imageList.count)
 					{
-						animationIndex = 0;
-						this.action = "standing";
-					}
-					
-					break;
-					
-				case "closing" :
-					this.imageList = this.spriteArray["closeing"];
-					this.imageOffset = this.imageOffset + this.animationIndex;
-					this.animationIndex++;
-					
-					if (this.animationIndex >= this.imageList.count)
-					{
 						this.animationIndex = 0;
-						this.action = "standing";
+						this.action = "stand";
 					}
 					
 					break;
 					
 				case "opening" :
-					this.imageList = this.spriteArray["opening"];
-					
-					// by reversing the imageOffset you are reversing the animation, making this the reverse of the closing animation
-					this.imageOffset = (this.imageList.offset + this.imageList.count) - this.animationIndex;
-					
+					this.imageList = this.spriteArray["closeing"];
+					//this.imageOffset = this.imageList.offset + this.animationIndex;
+					this.imageOffset = this.imageList.offset + this.imageList.count - this.animationIndex;
 					this.animationIndex++;
 					
-					// change to the closing animation after this animation has finished
+					// change the animation to standing when the animation has finished
 					if (this.animationIndex >= this.imageList.count)
 					{
 						this.animationIndex = 0;

@@ -55,7 +55,7 @@ var singleplayer =
 				if (window[type])
 				{
 					// loads the data using the appropriate load method
-					window[type].load(name)
+					window[type].load(name);
 				}
 				else
 				{
@@ -64,7 +64,8 @@ var singleplayer =
 			};
 		}
 		
-		for (var z = level.items.length - 1; z >= 0; z--)
+		//for (var z = level.items.length - 1; z >= 0; z--)
+		for (var z = 0; z < level.items.length; z++)
 		{
 			// adds all of the assets that have just been loaded to the game object
 			var itemDetails = level.items[z];
