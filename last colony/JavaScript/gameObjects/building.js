@@ -84,6 +84,44 @@ var building =
 			],
 			
 		},
+		
+		"harvester" :
+		{
+			name : "harvester",
+			
+			// data required to draw the object from the sprite sheet
+			pixelWidth : 40,
+			pixelHeight : 60,
+			baseWidth : 40,
+			baseHeight : 20,
+			pixelOffsetX : -2,
+			pixelOffsetY : 40,
+			
+			// data for pathfinding for units to navigate arround the base
+			buildableGrid :
+			[
+				[1, 1],
+			],
+			
+			passableGrid :
+			[
+				[1, 1],
+			],
+			
+			// data for the objects in game usefulness
+			sight : 3,
+			baseHP : 300,
+			cost : 5000,
+			
+			// data for the animations the building has
+			spriteImages :
+			[
+				{name : "deploy", count : 17},
+				{name : "normal", count : 3},
+				{name : "damaged", count : 1},
+			],
+			
+		},
 	},
 	
 	load : loadItem,
@@ -203,6 +241,20 @@ var building =
 					{
 						this.animationIndex = 0;
 						this.action = "closeing";
+					}
+					
+					break;
+					
+				case "deploy" :
+					this.imageList = this.spriteArray["deploy"];
+					this.imageOffset = this.imageList.offset + this.animationIndex;
+					this.animationIndex++;
+					
+					// change the animation to standing when the animation has finished
+					if (this.animationIndex >= this.imageList.count)
+					{
+						this.animationIndex = 0;
+						this.action = "stand";
 					}
 					
 					break;
