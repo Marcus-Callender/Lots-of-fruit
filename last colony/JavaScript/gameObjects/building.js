@@ -312,6 +312,24 @@ var building =
 					}
 					
 					break;
+					
+				case "guard" :
+					if (this.lifeState == "damaged")
+					{
+						this.imageList = this.spriteArray[this.lifeState];
+					}
+					else
+					{
+						// if the building isn't damaged the sprite uses direction 
+						// so we need to add the direction to the name of the sprite we are searching for
+						this.imageList = this.spriteArray[this.lifeState + " : " + this.direction];
+					}
+					
+					this.imageOffset = this.imageList.offset;
+				
+					// these are static images so no looping code is required
+					
+					break;
 			}
 		},
 		
