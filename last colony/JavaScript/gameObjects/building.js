@@ -123,9 +123,9 @@ var building =
 			
 		},
 		
-		"ground turret" :
+		"ground-turret" :
 		{
-			name : "ground turret",
+			name : "ground-turret",
 			
 			//canAttack : true,
 			canAttackGround : true,

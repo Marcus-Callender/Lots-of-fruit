@@ -14,7 +14,7 @@ var maps =
 			/* what types of objects will be preloaded */
 			"requirements" :
 			{
-				"building" : ["base", "starport", "harvester"],
+				"building" : ["base", "starport", "harvester", "ground-turret"],
 				"vehicle" : [],
 				"aircraft" : [],
 				"terrain" : [],
@@ -34,6 +34,10 @@ var maps =
 				
 				{"type" : "building", "name" : "harvester", "x" : 20, "y" : 10, "team" : "blue"},
 				{"type" : "building", "name" : "harvester", "x" : 22, "y" : 12, "team" : "green", "action" : "deploy"},
+				
+				{"type" : "building", "name" : "ground-turret", "x" : 14, "y" : 9, "team" : "blue", "direction" : 3},
+				{"type" : "building", "name" : "ground-turret", "x" : 14, "y" : 12, "team" : "green", "direction" : 1},
+				{"type" : "building", "name" : "ground-turret", "x" : 16, "y" : 10, "team" : "blue", "action" : "teleport"},
 			],
 		},
 	]
