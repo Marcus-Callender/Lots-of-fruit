@@ -122,6 +122,60 @@ var building =
 			],
 			
 		},
+		
+		"ground turret" :
+		{
+			name : "ground turret",
+			
+			//canAttack : true,
+			canAttackGround : true,
+			canAttackAir : false,
+			
+			bulettType : "cannon ball",
+			
+			// this is the default action for attacking units
+			// unlike stand it takes direction into account when drawing the unit
+			action : "guard",
+			
+			direction : 0,
+			numDirections : 8,
+			
+			orders : {type : "guard"},
+			
+			// data required to draw the object from the sprite sheet
+			pixelWidth : 38,
+			pixelHeight : 32,
+			baseWidth : 20,
+			baseHeight : 18,
+			pixelOffsetX : 9,
+			pixelOffsetY : 12,
+			
+			// data for pathfinding for units to navigate arround the base
+			buildableGrid :
+			[
+				[1],
+			],
+			
+			passableGrid :
+			[
+				[1],
+			],
+			
+			// data for the objects in game usefulness
+			sight : 5,
+			baseHP : 200,
+			cost : 1500,
+			
+			// data for the animations the building has
+			spriteImages :
+			[
+				{name : "teleport", count : 9},
+				// the directions filed is used to load all the directions from the sprite sheet
+				{name : "normal", count : 1, directions : 8},
+				{name : "damaged", count : 1},
+			],
+			
+		},
 	},
 	
 	load : loadItem,
@@ -204,7 +258,7 @@ var building =
 						
 						/*this.action = "stand";*/
 						
-						if (this.canAttack)
+						if (this.canAttackAir || this.canAttackGround)
 						{
 							this.action = "guard";
 						}
