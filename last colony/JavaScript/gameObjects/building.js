@@ -41,6 +41,49 @@ var building =
 			],
 			
 		},
+		
+		"startport" :
+		{
+			name : "startport",
+			
+			// data required to draw the object from the sprite sheet
+			pixelWidth : 40,
+			pixelHeight : 60,
+			baseWidth : 40,
+			baseHeight : 55,
+			pixelOffsetX : 1,
+			pixelOffsetY : 5,
+			
+			// data for pathfinding for units to navigate arround the base
+			buildableGrid :
+			[
+				[1, 1],
+				[1, 1],
+				[1, 1],
+			],
+			
+			passableGrid :
+			[
+				[1, 1],
+				[0, 0],
+				[0, 0],
+			],
+			
+			// data for the objects in game usefulness
+			sight : 3,
+			baseHP : 300,
+			cost : 2000,
+			
+			// data for the animations the building has
+			spriteImages :
+			[
+				{name : "teleport", count : 9},
+				{name : "closing", count : 18},
+				{name : "normal", count : 4},
+				{name : "damaged", count : 1},
+			],
+			
+		},
 	},
 	
 	load : loadItem,
@@ -107,6 +150,74 @@ var building =
 					{
 						this.animationIndex = 0;
 						this.action =  "stand";
+					}
+					
+					break;
+					
+				case "teleport" :
+					this.imageList = this.spriteArray["teleport"];
+					this.imageOffset = this.imageList.offset + this.animationIndex;
+					this.animationIndex++;
+					
+					// once the teleport animation has finished move to the appropriate animation
+					if (this.animationIndex >= this.imageList.count)
+					{
+						this.animationIndex = 0;
+						
+						/*this.action = "stand";*/
+						
+						if (this.canAttack)
+						{
+							this.action = "guard";
+						}
+						else
+						{
+							this.action = "stand";
+						}
+					}
+					
+					break;
+					
+				case "closeing" :
+					this.imageList = this.spriteArray["closeing"];
+					this.imageOffset = this.imageList.offset + this.animationIndex;
+					this.animationIndex++;
+					
+					// change the animation to standing when the animation has finished
+					if (this.animationIndex >= this.imageList.count)
+					{
+						animationIndex = 0;
+						this.action = "standing";
+					}
+					
+					break;
+					
+				case "closing" :
+					this.imageList = this.spriteArray["closeing"];
+					this.imageOffset = this.imageOffset + this.animationIndex;
+					this.animationIndex++;
+					
+					if (this.animationIndex >= this.imageList.count)
+					{
+						this.animationIndex = 0;
+						this.action = "standing";
+					}
+					
+					break;
+					
+				case "opening" :
+					this.imageList = this.spriteArray["opening"];
+					
+					// by reversing the imageOffset you are reversing the animation, making this the reverse of the closing animation
+					this.imageOffset = (this.imageList.offset + this.imageList.count) - this.animationIndex;
+					
+					this.animationIndex++;
+					
+					// change to the closing animation after this animation has finished
+					if (this.animationIndex >= this.imageList.count)
+					{
+						this.animationIndex = 0;
+						this.action = "closeing";
 					}
 					
 					break;

@@ -146,14 +146,13 @@ var game =
 			game.items[z].animate();
 		};
 		
-		// sort the objects in the game based on there x/y coordenets
-		// TODO : figure out what this code dose as I don't yet understand it.
+		// sort the objects in the game so they can be rendered from back to front
 		game.sortedItems = $.extend([], game.items);
 		
 		game.sortedItems.sort(
 			function(one, two)
 			{
-				return two.y - one.y + ((two.y == one.y) ? (one.x - two.x) : 0);
+				return one.y - two.y + ((one.y == two.y) ? (two.x - one.x) : 0);
 			}
 		);
 	},
