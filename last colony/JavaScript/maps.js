@@ -15,7 +15,7 @@ var maps =
 			"requirements" :
 			{
 				"building" : ["base", "starport", "harvester", "ground-turret"],
-				"vehicle" : [],
+				"vehicle" : ["transport", "harvester", "scout-tank", "heavy-tank"],
 				"aircraft" : [],
 				"terrain" : [],
 			},
@@ -38,6 +38,16 @@ var maps =
 				{"type" : "building", "name" : "ground-turret", "x" : 14, "y" : 9, "team" : "blue", "direction" : 3},
 				{"type" : "building", "name" : "ground-turret", "x" : 14, "y" : 12, "team" : "green", "direction" : 1},
 				{"type" : "building", "name" : "ground-turret", "x" : 16, "y" : 10, "team" : "blue", "action" : "teleport"},
+				
+				{"type" : "vehicle", "name" : "transport", "x" : 26, "y" : 10, "team" : "green", "direction" : 1},
+				{"type" : "vehicle", "name" : "harvester", "x" : 26, "y" : 12, "team" : "green", "direction" : 6},
+				{"type" : "vehicle", "name" : "scout-tank", "x" : 26, "y" : 14, "team" : "green", "direction" : 0},
+				{"type" : "vehicle", "name" : "heavy-tank", "x" : 26, "y" : 16, "team" : "green", "direction" : 4},
+				
+				{"type" : "vehicle", "name" : "transport", "x" : 28, "y" : 10, "team" : "blue", "direction" : 5},
+				{"type" : "vehicle", "name" : "harvester", "x" : 28, "y" : 12, "team" : "blue", "direction" : 3},
+				{"type" : "vehicle", "name" : "scout-tank", "x" : 28, "y" : 14, "team" : "blue", "direction" : 7},
+				{"type" : "vehicle", "name" : "heavy-tank", "x" : 28, "y" : 16, "team" : "blue", "direction" : 2},
 			],
 		},
 	]

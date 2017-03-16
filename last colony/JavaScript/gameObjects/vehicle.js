@@ -146,9 +146,9 @@ var vehicle =
 			switch(this.action)
 			{
 				case "stand" :
-					this.imageList = this.spriteArray["stand : " + this.direction];
+					this.imageList = this.spriteArray["normal : " + this.direction];
 					this.imageOffset = this.imageList.offset + this.animationIndex;
-					this.animationIndex++;
+					//this.animationIndex++;
 					
 					// once the animation has finished it is reverted back to the begining to loop it
 					/*if (this.animationIndex >= this.imageList.count)
