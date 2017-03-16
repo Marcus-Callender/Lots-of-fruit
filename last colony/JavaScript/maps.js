@@ -17,7 +17,7 @@ var maps =
 				"building" : ["base", "starport", "harvester", "ground-turret"],
 				"vehicle" : ["transport", "harvester", "scout-tank", "heavy-tank"],
 				"aircraft" : ["chopper", "wraith"],
-				"terrain" : [],
+				"terrain" : ["oilfield", "bigRocks", "smallRocks"],
 			},
 			
 			/* details on the objects that will be pre loaded */
@@ -53,6 +53,11 @@ var maps =
 				{"type" : "aircraft", "name" : "wraith", "x" : 23, "y" : 22, "team" : "green", "direction" : 2},
 				{"type" : "aircraft", "name" : "chopper", "x" : 20, "y" : 26, "team" : "green", "direction" : 3},
 				{"type" : "aircraft", "name" : "wraith", "x" : 23, "y" : 26, "team" : "blue", "direction" : 4},
+				
+				{"type" : "terrain", "name" : "oilfield", "x" : 5, "y" : 7, "action" : "hint"},
+				{"type" : "terrain", "name" : "oilfield", "x" : 8, "y" : 7},
+				{"type" : "terrain", "name" : "bigRocks", "x" : 5, "y" : 3},
+				{"type" : "terrain", "name" : "smallRocks", "x" : 8, "y" : 3},
 			],
 		},
 	]
