@@ -16,7 +16,7 @@ var maps =
 			{
 				"building" : ["base", "starport", "harvester", "ground-turret"],
 				"vehicle" : ["transport", "harvester", "scout-tank", "heavy-tank"],
-				"aircraft" : [],
+				"aircraft" : ["chopper", "wraith"],
 				"terrain" : [],
 			},
 			
@@ -48,6 +48,11 @@ var maps =
 				{"type" : "vehicle", "name" : "harvester", "x" : 28, "y" : 12, "team" : "blue", "direction" : 3},
 				{"type" : "vehicle", "name" : "scout-tank", "x" : 28, "y" : 14, "team" : "blue", "direction" : 7},
 				{"type" : "vehicle", "name" : "heavy-tank", "x" : 28, "y" : 16, "team" : "blue", "direction" : 2},
+				
+				{"type" : "aircraft", "name" : "chopper", "x" : 20, "y" : 22, "team" : "blue", "direction" : 7},
+				{"type" : "aircraft", "name" : "wraith", "x" : 23, "y" : 22, "team" : "green", "direction" : 2},
+				{"type" : "aircraft", "name" : "chopper", "x" : 20, "y" : 26, "team" : "green", "direction" : 3},
+				{"type" : "aircraft", "name" : "wraith", "x" : 23, "y" : 26, "team" : "blue", "direction" : 4},
 			],
 		},
 	]

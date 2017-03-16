@@ -133,6 +133,7 @@ var aircraft =
 			game.foregroundContext.drawImage(this.spriteSheet, this.imageOffset * this.pixelWidth,
 				colourOffset, this.pixelWidth, this.pixelHeight, x, y, this.pixelWidth, this.pixelHeight);
 				
+			// this draws the aircrafts shadow on the ground
 			game.foregroundContext.drawImage(this.spriteSheet, this.imageOffset * this.pixelWidth,
 				shadowOffset, this.pixelWidth, this.pixelHeight, x, (y + this.pixelShadowHeight), this.pixelWidth, this.pixelHeight);
 		},
