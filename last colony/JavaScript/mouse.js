@@ -132,7 +132,28 @@ var mouse =
 	
 	click : function(ev, rightClick)
 	{
-		// TODO implement
+		var clickedObject = this.itemUnderMouse();
+		var shiftPressed = ev.shiftKey;
+		
+		// if the mouse button clicked was the left mouse button
+		if (!rightClick)
+		{
+			// if there is an object being selected
+			if (clickedObject)
+			{
+				// if the shift key was not pressed clear the currently selected objects
+				if (!shiftPressed)
+				{
+					game.clearSelection();
+				}
+				
+				game.selectItem(clickedObject, shiftPressed);
+			}
+		}
+		else
+		{
+			// handle giving orderers to the units
+		}
 	},
 	
 	drawSelectBox : function()
@@ -158,6 +179,75 @@ var mouse =
 		
 		mouse.gridX = Math.floor((mouse.gameX) / game.gridSize);
 		mouse.gridY = Math.floor((mouse.gameY) / game.gridSize);
+	},
+	
+	objectInSelectionBox : function(object)
+	{
+		if (object.x <= ((mouse.gameX) / game.gridSize))
+		{	
+			if (object.x >= ((mouse.gameX - object.baseWidth) / game.gridSize))
+			{
+				if (object.y <= ((mouse.gameY) / game.gridSize))
+				{
+					if (object.y >= ((mouse.gameX - object.baseHeight) / game.gridSize))
+					{
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	},
+	
+	objectInSelectionRadius : function(object)
+	{
+		squeredXDistacne = Math.pow(object.x - (mouse.gameX / game.gridSize), 2);
+		squeredYDistacne = Math.pow(object.y - (mouse.gameY / game.gridSize), 2);
+		
+		if (object.type == "aircraft")
+		{
+			squeredYDistacne = Math.pow(object.y - (mouse.gameY + item.pixelShadowHeight) / game.gridSize, 2);
+		}
+		
+		squeredObjectRadius = Math.pow((object.radius) / game.gridSize, 2)
+		
+		if (squeredXDistacne + squeredYDistacne < squeredObjectRadius)
+		{
+			return true;
+		}
+		
+		return false;
+	},
+	
+	itemUnderMouse : function()
+	{
+		for (var z = 0; z < game.items.length; z++)
+		{
+			var object = game.items[z];
+			
+			if (object.type == "building" || object.type == "terrain")
+			{
+				if (object.lifeState != "dead" && mouse.objectInSelectionBox(object))
+				{
+					return object;
+				}
+			}
+			/*else if (object.type == "aircraft")
+			{
+				if (object.lifeState == "dead" && objectInSelectionRadius(object))
+				{
+					return item;
+				}					
+			}*/
+			else
+			{
+				if (object.lifeState == "dead" && objectInSelectionRadius(object))
+				{
+					return item;
+				}
+			}
+		}
 	},
 }
 
