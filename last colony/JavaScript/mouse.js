@@ -93,9 +93,37 @@ var mouse =
 			{
 				var shiftPressed = ev.shiftKey;
 				
-				//if (ev.whichMouseButton == 1)
+				//if the left mouse button was relesed
 				if (ev.which == 1)
 				{
+					if (mouse.dragSelect)
+					{
+						if (!shiftPressed)
+						{
+							// if the shift key is held retain the previously selected objects
+							game.clearSelection();
+						}
+						
+						var left = Math.min(mouse.gameX, mouse.dragX) / game.gridSize;
+						var right = Math.max(mouse.gameX, mouse.dragX) / game.gridSize;
+						var bottom = Math.max(mouse.gameY, mouse.dragY) / game.gridSize;
+						var top = Math.min(mouse.gameY, mouse.dragY) / game.gridSize;
+						
+						for (var z = 0; z < game.items.length; z++)
+						{
+							var object = game.items[z];
+							
+							if (object.type != "building" && object.selectable && item.team == game.team && left <= object.x && right >= object.x)
+							{
+								if ((object.type == "vehicle" && top <= object.y && bottom >= object.y)
+									|| (object.type == "aircraft" && (top <= object.y - object.pixelShadowHeight / game.gridSize) && (bottom >= object.y - object.pixelShadowHeight / game.gridSize)))
+								{
+									game.selectItem(object, shiftPressed);
+								}
+							}
+						};
+					}
+					
 					mouse.isLeftMouseButtonDown = false;
 					mouse.dragSelect = false;
 				}
