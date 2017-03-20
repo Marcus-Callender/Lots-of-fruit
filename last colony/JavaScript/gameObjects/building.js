@@ -386,7 +386,7 @@ var building =
 			
 			game.foregroundContext.fillRect(xPos - 1, yPos - 1, this.baseWidth + 2, this.baseHeight + 2);
 			game.foregroundContext.strokeRect(xPos - 1, yPos - 1, this.baseWidth + 2, this.baseHeight + 2);
-		}
+		},
 	},
 }
 
