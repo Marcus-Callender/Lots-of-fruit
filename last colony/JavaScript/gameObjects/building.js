@@ -339,6 +339,15 @@ var building =
 			var x = ((this.x * game.gridSize) - game.offsetX) - this.pixelOffsetX;
 			var y = ((this.y * game.gridSize) - game.offsetY) - this.pixelOffsetY;
 			
+			this.drawingX = x;
+			this.drawingY = y;
+			
+			if (this.selected)
+			{
+				this.drawSelectionBorder();
+				this.drawLifeBar();
+			}
+			
 			// decides which row to read the sprites from 0 = blue 1 = green
 			var colourIndex = (this.team == "blue") ? 0 : 1;
 			var colourOffset = colourIndex * this.pixelHeight;
@@ -363,8 +372,21 @@ var building =
 			game.foregroundContext.lineWidth = 1;
 			
 			// draws a border arround the life bar
-			game.foregroundContext.strokeRect(xPos - 1, yPos - 1, this.baseWidth + 2, this.baseHeight + 2);
+			game.foregroundContext.strokeRect(xPos, yPos, this.baseWidth, game.lifeBarHeight);
 		},
+		
+		drawSelectionBorder : function()
+		{
+			var xPos = this.drawingX + this.pixelOffsetX;
+			var yPos = this.drawingY + this.pixelOffsetY;
+			
+			game.foregroundContext.strokeStyle = game.selectionBorderColour;
+			game.foregroundContext.lineWidth = 1;
+			game.foregroundContext.fillStyle = game.selectionFillColour;
+			
+			game.foregroundContext.fillRect(xPos - 1, yPos - 1, this.baseWidth + 2, this.baseHeight + 2);
+			game.foregroundContext.strokeRect(xPos - 1, yPos - 1, this.baseWidth + 2, this.baseHeight + 2);
+		}
 	},
 }
 
