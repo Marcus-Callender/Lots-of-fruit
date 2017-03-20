@@ -25,6 +25,15 @@ var game =
 	startPanningThreshold : 60,
 	panningSpeed : 1,
 	
+	// visual effects for the selected objects and there health bar
+	selectionBorderColour : "rgba(255, 255, 0, 0.5)",
+	selectionFillColour : "rgba(155, 215, 0, 0.2)",
+	
+	healthBarBorderColour : "rgba(0, 0, 0, 0.8)",
+	healthBarHealthyFillColour : "rgba(0, 255, 0, 0.5)",
+	healthBarDamagedFillColour : "rgba(255, 0, 0, 0.5)",
+	lifeBarHeight : 5,
+	
 	init : function()
 	{
 		// preload necicery assets
@@ -235,6 +244,42 @@ var game =
 		{
 			// call the drawing loop for the next frame using requestAnimationFrame
 			requestAnimationFrame(game.drawingLoop);
+		}
+	},
+	
+	clearSelection : function()
+	{
+		// deselects all items and removes them from the selectedItems array
+		while (game.selectedItems.length > 0)
+		{
+			game.selectedItems.pop().selected = false;
+		}
+	},
+	
+	selectItem : function(object, shiftPressed)
+	{
+		// if shift is pressed and the object is selected, de-select it
+		if (shiftPressed && object.selected)
+		{
+			object.selected = false;
+			
+			for (var z = 0; z < game.selectedItems.length; z++)
+			{
+				if (game.selectItems[z].ID == object.ID)
+				{
+					game.selectedItems.splice(z, 1);
+					break;
+				}
+			};
+			
+			return;
+		}
+		
+		// if the object is selected and it is not currently selected, select it
+		if (object.selectable && !object.selected)
+		{
+			object.selected = true;
+			game.selectedItems.push(object);
 		}
 	},
 }

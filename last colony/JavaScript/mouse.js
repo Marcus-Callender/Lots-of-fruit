@@ -113,8 +113,10 @@ var mouse =
 						{
 							var object = game.items[z];
 							
-							if (object.type != "building" && object.selectable && item.team == game.team && left <= object.x && right >= object.x)
+							// checks the cuttent object is appropriate for selecting
+							if (object.type != "building" && object.selectable && object.team == game.team && left <= object.x && right >= object.x)
 							{
+								// checks the current object is within the selection box
 								if ((object.type == "vehicle" && top <= object.y && bottom >= object.y)
 									|| (object.type == "aircraft" && (top <= object.y - object.pixelShadowHeight / game.gridSize) && (bottom >= object.y - object.pixelShadowHeight / game.gridSize)))
 								{
