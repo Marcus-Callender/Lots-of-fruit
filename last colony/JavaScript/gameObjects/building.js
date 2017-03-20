@@ -346,6 +346,25 @@ var building =
 			game.foregroundContext.drawImage(this.spriteSheet, this.imageOffset * this.pixelWidth,
 				colourOffset, this.pixelWidth, this.pixelHeight, x, y, this.pixelWidth, this.pixelHeight);
 		},
+		
+		drawLifeBar : function()
+		{
+			var xPos = this.drawingX + this.pixelOffsetX;
+			var yPos = this.drawingY - (2 * game.lifeBarHeight);
+			
+			// sets the life bar to green when the building is normal and red when it is bellow 40%
+			game.foregroundContext.fillStyle = (this.lifeState == "normal") ? game.healthBarHealthyFillColour : game.healthBarDamagedFillColour;
+			
+			// draws the life bar
+			game.foregroundContext.fillRect(xPos, yPos, this.baseWidth * (this.hp / this.baseHP) , game.lifeBarHeight);
+			
+			// sets the context for drawing the life bar border
+			game.foregroundContext.strokeStyle = game.healthBarBorderColour;
+			game.foregroundContext.lineWidth = 1;
+			
+			// draws a border arround the life bar
+			game.foregroundContext.strokeRect(xPos - 1, yPos - 1, this.baseWidth + 2, this.baseHeight + 2);
+		},
 	},
 }
 
