@@ -100,5 +100,12 @@ var singleplayer =
 		
 		game.start();
 	},
+	
+	sendCommand : function(unitIDs, details)
+	{
+		// this just send the data back to game as nothing has to be transmitted like in multiplayer
+		// this could be expanded to incorperate a rewind or save system here
+		game.processCommand(UnitIDs, details);
+	}
 };
 

@@ -230,6 +230,7 @@ var mouse =
 						}
 					}
 				}
+				// command a harvester to deploy on an oilfield 
 				else if (clickedItem.name == "oilfield")
 				{
 					// find if the player has a harvester selected

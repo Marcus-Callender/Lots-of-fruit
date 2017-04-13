@@ -282,5 +282,64 @@ var game =
 			game.selectedItems.push(object);
 		}
 	},
+	
+	// Send the commands to eather singleplayer or multiplayer methods
+	sendCommand: function(unitIDs, details)
+	{
+		if (game.type == "singleplayer")
+		{
+			singleplayer.sendCommand(unitIDs, details);
+		}
+		else
+		{
+			// only the multiplayer command will send the command to another computer
+			multiplayer.sendCommand(unitIDs, details);
+		}
+	},
+	
+	findUnitFromID(id)
+	{
+		for (var z = 0; z < game.items.length; z++)
+		{
+			if (game.items[z].ID == id)
+			{
+				return game.items[z];
+			}
+		};
+	},
+	
+	// Recive a command from singleplayer or multiplayer and send it to the units
+	processCommand : function(unitIDs, details)
+	{
+		// find the targate object
+		var targetUnit;
+		
+		if (details.goToUnit)
+		{
+			targateUnit = game.findUnitFromID(details.goToUnit);
+			
+			if (!targateUnit || targateUnit.lifeState == "dead")
+			{
+				return;
+			}
+		}
+		
+		// cycle through all the unit IDs
+		for (var x in unitIDs)
+		{
+			var currentID = unitIDs[z];
+			
+			var currentUnit = game.findUnitFromID(currentID);
+			
+			if (currentUnit)
+			{
+				currentUnit.orders = $.extend([], details);
+				if (targateUnit)
+				{
+					currentUnit.orders.target = targetUnit;
+				}
+			}
+		};
+	},
 }
 
