@@ -182,7 +182,97 @@ var mouse =
 		}
 		else
 		{
-			// handle giving orderers to the units
+			// handle giving orderers to the selected units
+			var unitIDs = [];
+			
+			// if the player clicked on an object
+			if (clickedObject)
+			{
+				if (clickedObject.type != "terrain")
+				{
+					// command to attack an enemy unit
+					if (clickedObject.team != game.team)
+					{
+						// find objects selected that the units can attack
+						for (var z = 0; z < game.selectedItems.length; z++)
+						{
+							var currObject = game.selectedItems[z];
+							
+							if (currObject.team == game.team && (item.canAttackGround || item.canAttackAir))
+							{
+								unitIDs.push(currObject.ID);
+							}
+						};
+						
+						// command the selected units to attack the clicked enemies
+						if (unitIDs.length > 0)
+						{
+							game.sendCommand(unitIDs, {type : "attack", goToUnit : clickedItem.ID});
+						}
+					}
+					// command units to defend a friendly unit
+					else
+					{
+						//identify the unit to defend
+						for (var z = 0; z < game.selectedItems.length; z++)
+						{
+							var currObject = game.selectedItems[z];
+							
+							if (currObject.team == game.team && (currObject.type == "vehicle" || currObject.type == "aircraft"))
+							{
+								unitIDs.push(currObject.ID);
+							}
+						};
+						// command the units to guard the clicked object
+						if (unitIDs.length > 0)
+						{
+							game.sendCommand(unitIDs, {type : "guard", goToUnit : clickedItem.ID});
+						}
+					}
+				}
+				else if (clickedItem.name == "oilfield")
+				{
+					// find if the player has a harvester selected
+					for (var z = 0; z < game.selectedItems.length; z++)
+					{
+						var currObject = game.selectedItems[z];
+						
+						if (currObject.team == game.team && currObject.name == "harvester")
+						{
+							unitIDs.push(currObject.ID);
+							
+							// only alow one harvester to be selected
+							break;
+						}
+					};
+					
+					// command the harvester to deploy at the oilfield
+					if (unitIDs.length > 0)
+					{
+						game.sendCommand(unitIDs, {type : "deploy", goToUnit : clickedItem.ID});
+					}
+				}
+			}
+			// the player clicked on the ground or a rock to muve units there
+			else
+			{
+				// select the objects that can move
+				for (var z = 0; z < game.slectedItems.length; z++)
+				{
+					var currObject = game.slectedItems[z];
+					
+					if (currObject.team == game.team && (currObject.type == "vehicle" || currObject.type == "aircraft"))
+					{
+						unitIDs.push(currObject.ID);
+					}
+				};
+				
+				// order the units to move
+				if (unitIDs.length > 0)
+				{
+					game.sendCommand(unitIDs, {type : "move", goTo : {x : mouse.gameX / game.gridSize, y : mouse.gameY / game.gridSize}});
+				}
+			}
 		}
 	},
 	
