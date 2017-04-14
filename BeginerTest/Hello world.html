@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv = "Content-type" content = "text/html; charset = utf-8">
+		<title > Sample HTML5 File</title>
+		
+		<!--<img src = "ship.png" id = "spaceship">-->
+		<img src="ship.png" alt="Spaceship" id="spaceship">
+		
+		<script type = "text/javascript" charset = "utf-8">
+		
+			function createAudioSource()
+			{
+				// Creates an audio object.
+				var audio = document.createElement('audio');
+				var mp3Support, oggSupport;
+				
+				if (audio.canPlayType)
+				{
+					// The method canPlayType will return "", "mayby" or "probably".
+					mp3Support = ("" != audio.canPlayType('audio/mp3')); 
+					oggSupport = ("" != audio.canPlayType('audio/ogg', codecs = "vorbis"));
+				}
+				else
+				{
+					// Audio is not supported in general
+					mp3Support = false;
+					oggSupport = false;
+				}
+				
+				// set the sound file extention to an appropriate type
+				var soundFileExtn = mp3Support ? ".mp3" : (oggSupport ? ".ogg" : undefined);
+				
+				if (soundFileExtn)
+				{
+					// Creates an audio object
+					var music = new Audio();
+					
+					music.addEventListener('canplaythrough', 
+						function()
+						{
+							alert('Music file has been loaded!');
+							
+							// Prepares the music file to be played once loaded
+							music.play();
+						}
+					);
+					
+			    
+					// Gives the audio object a music file
+					music.src = "1-19 muscle blues" + soundFileExtn;
+				}
+			
+			}
+			
+			/*function loadImage()
+			{
+				var spaceship = new Image();
+				//alert('loadImage started');
+				
+				//alert('Image object created');
+				
+				spaceship.src = 'ship.png';
+				
+				//alert('Image Started loading');
+				
+				//spaceship.id = 'ship';
+			
+				spaceship.onload = 
+				function()
+				{
+					alert('Image has finished loading');
+				}
+			}*/
+			
+			function requestAnimation()
+			{
+				var lastTime = 0;
+				var vendors = ['ms', 'moz', 'webkit', 'o'];
+				
+				for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x)
+				{
+					window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+					
+					window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame']
+						|| window[vendors[x] + 'CancelRequestAnimationFrame'];
+				}
+				
+				if (!window.requestAnimationFrame)
+				{
+					window.requestAnimationFrame = 
+					function(callback, element)
+					{
+						var currentTime = new Date().getTime();
+						var timeToCall = Math.max(0, 16 - (currentTime - lastTime));
+						var id = window.setTimeout(
+							function() { callback(currentTime + timeToCall); },
+							timeToCall);
+						lastTime = currentTime + timeToCall;
+						return id;
+					}
+				}
+				
+				if (!window.cancelAnimationFrame)
+				{
+					window.cancelAnimationFrame = 
+					function(id)
+					{
+						clearTimeout(id);
+					}
+				}
+			}
+			
+			function loadImage()
+			{
+				var imageLoader = 
+				{
+					loaded:true,
+					loadedImages:0,
+					totalImages:0,
+					
+					load:function(url)
+					{
+						this.totalImages++;
+						this.loaded  = false;
+						var image = new Image();
+						image.src = url;
+						
+						image.onload = function()
+						{
+							imageLoader.loadedImages++;
+							
+							if (imageLoader.loadedImages === imageLoader.totalImages)
+							{
+								imageLoader.loaded = true;
+							}
+						}
+						
+						return image;
+					}
+				}
+			}
+			
+			function drawingLoop(currentTime)
+			{
+				// call the drawing loop method 
+				var gameLoop = requestAnimationFrame(drawingLoop);
+				
+				// clear the canvas
+				
+				// itterate through the game objects
+				
+				// use currentTime and lastTime to interpolate
+				
+				// draw the game objects
+				
+				cancelAnimationFrame(gameLoop);
+			}
+		
+			function pageLoaded()
+			{
+				
+				var image = document.getElementById('spaceship');
+				
+				//var spaceship2 = "ship.png";
+				
+				image.onload = 
+				function()
+				{
+					alert('Image has finished loading');
+				}
+				
+				console.log(image);
+				
+				createAudioSource();
+				//loadImage();
+				
+				// Get a handle to the canvas object
+				var canvas = document.getElementById('testcanvas');
+				// Get the 2d context for this canvas
+				var context = canvas.getContext('2d');
+				
+				// Our drawing code here. . .
+				
+				// Translate the canvas origin to a new position
+				context.translate(250, 370);
+				// Rotate about the new origin 60 degrees
+				context.rotate(Math.PI / 3);
+				// Draw the image
+				context.drawImage(image, 0, 0, /*-30, -25,*/ 60, 60);
+				// Restore the canvas to it's original state
+				context.rotate(-Math.PI / 3);
+				context.translate(-250, -370);
+				
+				// Translate the canvas origin to another position
+				context.translate(330, 370);
+				// Rotate about the new origin
+				context.rotate(3 * Math.PI / 4);
+				// Draw the image
+				context.drawImage(image, 0, 0, /*-30, -25,*/ 60, 60);
+				// Restore the canvas again
+				context.rotate(-3 * Math.PI / 4);
+				context.translate(-330, -370);
+			}
+		</script>
+		
+	</head>
+	
+	<canvas width = "640" height = "480" id = "testcanvas" style = "border:black 1px solid;">
+		Your browser does not support HTML5 Canvas. Please shift to another browser.
+	</canvas>
+	
+	<!--<audio controls = "controls">
+		<source src = "1-19 muscle blues.mp3" type = "audio/mp3" />
+		<source src = "1-19 muscle blues.ogg" type = "audio/ogg" />
+		Your browser does not support HTML5 Audio. Please shift to a newer browser.
+	</audio>-->
+	
+	<body onload = "pageLoaded();">
+	</body>
+</html>
+

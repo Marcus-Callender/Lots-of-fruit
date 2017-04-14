@@ -149,6 +149,16 @@ var game =
 	
 	animate : function()
 	{
+		// TODO: move this loop to a more subtable section of code
+		// tell the units that can exicute orders to exicute them
+		for (var z = 0; z < game.items.length; z++)
+		{
+			if (game.items[z].processOrders)
+			{
+				game.items[z].processOrders();
+			}
+		}
+		
 		// call the animate function for all the objects registered with the game
 		for (var z = 0; z < game.items.length; z++)
 		{
