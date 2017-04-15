@@ -80,7 +80,7 @@ var mouse =
 		);
 		
 		$mouseCanvas.bind('contextmenu', 
-			function()
+			function(ev)
 			{
 				mouse.click(ev, true);
 				
@@ -198,7 +198,7 @@ var mouse =
 						{
 							var currObject = game.selectedItems[z];
 							
-							if (currObject.team == game.team && (item.canAttackGround || item.canAttackAir))
+							if (currObject.team == game.team && (currObject.canAttackGround || currObject.canAttackAir))
 							{
 								unitIDs.push(currObject.ID);
 							}
@@ -207,7 +207,7 @@ var mouse =
 						// command the selected units to attack the clicked enemies
 						if (unitIDs.length > 0)
 						{
-							game.sendCommand(unitIDs, {type : "attack", goToUnit : clickedItem.ID});
+							game.sendCommand(unitIDs, {type : "attack", goToUnit : clickedObject.ID});
 						}
 					}
 					// command units to defend a friendly unit
@@ -226,12 +226,12 @@ var mouse =
 						// command the units to guard the clicked object
 						if (unitIDs.length > 0)
 						{
-							game.sendCommand(unitIDs, {type : "guard", goToUnit : clickedItem.ID});
+							game.sendCommand(unitIDs, {type : "guard", goToUnit : clickedObject.ID});
 						}
 					}
 				}
 				// command a harvester to deploy on an oilfield 
-				else if (clickedItem.name == "oilfield")
+				else if (clickedObject.name == "oilfield")
 				{
 					// find if the player has a harvester selected
 					for (var z = 0; z < game.selectedItems.length; z++)
@@ -250,7 +250,7 @@ var mouse =
 					// command the harvester to deploy at the oilfield
 					if (unitIDs.length > 0)
 					{
-						game.sendCommand(unitIDs, {type : "deploy", goToUnit : clickedItem.ID});
+						game.sendCommand(unitIDs, {type : "deploy", goToUnit : clickedObject.ID});
 					}
 				}
 			}
@@ -258,9 +258,9 @@ var mouse =
 			else
 			{
 				// select the objects that can move
-				for (var z = 0; z < game.slectedItems.length; z++)
+				for (var z = 0; z < game.selectedItems.length; z++)
 				{
-					var currObject = game.slectedItems[z];
+					var currObject = game.selectedItems[z];
 					
 					if (currObject.team == game.team && (currObject.type == "vehicle" || currObject.type == "aircraft"))
 					{
@@ -271,6 +271,11 @@ var mouse =
 				// order the units to move
 				if (unitIDs.length > 0)
 				{
+					if (!unitIDs)
+					{
+						console.log("Not Valid");
+					}
+					
 					game.sendCommand(unitIDs, {type : "move", goTo : {x : mouse.gameX / game.gridSize, y : mouse.gameY / game.gridSize}});
 				}
 			}
@@ -347,7 +352,7 @@ var mouse =
 		{
 			var object = game.items[z];
 			
-			if (object.type == "building" || object.type == "terrain")
+			if (/*object.type == "building" ||*/ object.type == "terrain")
 			{
 				if (object.lifeState != "dead" && mouse.objectInSelectionBox(object))
 				{

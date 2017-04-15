@@ -190,6 +190,63 @@ var aircraft =
 			game.foregroundContext.lineTo(xPos, yPos + this.pixelShadowHeight);
 			game.foregroundContext.stroke();
 		},
+		
+		prosessOrders : function()
+		{
+			this.previousMoventX = 0;
+			this.previousMoventY = 0;
+			
+			switch (this.orders.type)
+			{
+				case "move":
+					console.log("UnitMoveing");
+				
+					// move toward the target until the distance is the aircrafts radius or less
+					var distanceFromTargateSquared = Math.pow(this.orders.goTo.x - this.x, 2) + Math.pow(this.orders.goTo.y - this.y, 2);
+					
+					if (distanceFromTargateSquared < Math.pow(this.radius / game.gridSize, 2))
+					{
+						this.orders = {type : "fly"};
+					}
+					else
+					{
+						this.moveTo(this.orders.goTo);
+					}
+					
+					break;
+			}
+		},
+	},
+	
+	moveTo : function(targate)
+	{
+		// find the amgle between the aircraft and the targate
+		var directionToTragate = findAngle(targate, this, this.directions);		
+		
+		// find the angle diffrence between the new and current direction and the direction to the targate
+		var angleDiffrence = angleDiff(this.direction, directionToTragate, this.directions);
+		
+		// find the ammount the aircraft can turn this frame
+		var turnAmmount = this.turnSpeed * game.turnSpeedAdjustmentFactor;
+		
+		if (Math.abs(angleDiffrence) > turnAmmount)
+		{
+			this.direction = wrapDirection(this.direction, directionToTragate + turnAmmount * Math.abs(angleDiffrence) / diffrence, this.directions);
+		}
+		else
+		{
+			// find the ammount the aircraft can move this frame
+			var moement = this.speed * game.speedAjustmentFactor;
+			
+			// find how much movment is needed for x and y axis
+			var angleInRadians = -(Math.round(this.direction) / this.direction) * 2 * Math.PI;
+			
+			this.previousMoventX = -(movement * Math.sin(angleInRadians));
+			this.previousMoventY = -(movement * Math.cos(angleInRadians));
+			
+			this.x = (this.x + this.previousMoventX);
+			this.y = (this.y + this.previousMoventY);
+		}
 	},
 }
 

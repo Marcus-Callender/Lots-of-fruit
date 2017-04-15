@@ -298,6 +298,11 @@ var game =
 	{
 		if (game.type == "singleplayer")
 		{
+			if (!unitIDs)
+			{
+				console.log("Not Valid");
+			}
+			
 			singleplayer.sendCommand(unitIDs, details);
 		}
 		else
@@ -326,16 +331,16 @@ var game =
 		
 		if (details.goToUnit)
 		{
-			targateUnit = game.findUnitFromID(details.goToUnit);
+			targetUnit = game.findUnitFromID(details.goToUnit);
 			
-			if (!targateUnit || targateUnit.lifeState == "dead")
+			if (!targetUnit || targetUnit.lifeState == "dead")
 			{
 				return;
 			}
 		}
 		
 		// cycle through all the unit IDs
-		for (var x in unitIDs)
+		for (var z in unitIDs)
 		{
 			var currentID = unitIDs[z];
 			
@@ -344,7 +349,7 @@ var game =
 			if (currentUnit)
 			{
 				currentUnit.orders = $.extend([], details);
-				if (targateUnit)
+				if (targetUnit)
 				{
 					currentUnit.orders.target = targetUnit;
 				}
