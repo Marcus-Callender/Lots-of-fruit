@@ -191,7 +191,7 @@ var aircraft =
 			game.foregroundContext.stroke();
 		},
 		
-		prosessOrders : function()
+		processOrders : function()
 		{
 			this.previousMoventX = 0;
 			this.previousMoventY = 0;
@@ -216,37 +216,37 @@ var aircraft =
 					break;
 			}
 		},
-	},
 	
-	moveTo : function(targate)
-	{
-		// find the amgle between the aircraft and the targate
-		var directionToTragate = findAngle(targate, this, this.directions);		
-		
-		// find the angle diffrence between the new and current direction and the direction to the targate
-		var angleDiffrence = angleDiff(this.direction, directionToTragate, this.directions);
-		
-		// find the ammount the aircraft can turn this frame
-		var turnAmmount = this.turnSpeed * game.turnSpeedAdjustmentFactor;
-		
-		if (Math.abs(angleDiffrence) > turnAmmount)
+		moveTo : function(targate)
 		{
-			this.direction = wrapDirection(this.direction, directionToTragate + turnAmmount * Math.abs(angleDiffrence) / diffrence, this.directions);
-		}
-		else
-		{
-			// find the ammount the aircraft can move this frame
-			var moement = this.speed * game.speedAjustmentFactor;
+			// find the amgle between the aircraft and the targate
+			var directionToTragate = findAngle(targate, this, this.directions);		
 			
-			// find how much movment is needed for x and y axis
-			var angleInRadians = -(Math.round(this.direction) / this.direction) * 2 * Math.PI;
+			// find the angle diffrence between the new and current direction and the direction to the targate
+			var angleDiffrence = angleDiff(this.direction, directionToTragate, this.directions);
 			
-			this.previousMoventX = -(movement * Math.sin(angleInRadians));
-			this.previousMoventY = -(movement * Math.cos(angleInRadians));
+			// find the ammount the aircraft can turn this frame
+			var turnAmmount = this.turnSpeed * game.turnSpeedAdjustmentFactor;
 			
-			this.x = (this.x + this.previousMoventX);
-			this.y = (this.y + this.previousMoventY);
-		}
+			if (Math.abs(angleDiffrence) > turnAmmount)
+			{
+				this.direction = wrapDirection(this.direction, directionToTragate + turnAmmount * Math.abs(angleDiffrence) / diffrence, this.directions);
+			}
+			else
+			{
+				// find the ammount the aircraft can move this frame
+				var moement = this.speed * game.speedAjustmentFactor;
+				
+				// find how much movment is needed for x and y axis
+				var angleInRadians = -(Math.round(this.direction) / this.direction) * 2 * Math.PI;
+				
+				this.previousMoventX = -(movement * Math.sin(angleInRadians));
+				this.previousMoventY = -(movement * Math.cos(angleInRadians));
+				
+				this.x = (this.x + this.previousMoventX);
+				this.y = (this.y + this.previousMoventY);
+			}
+		},
 	},
 }
 
