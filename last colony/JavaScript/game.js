@@ -34,6 +34,10 @@ var game =
 	healthBarDamagedFillColour : "rgba(255, 0, 0, 0.5)",
 	lifeBarHeight : 5,
 	
+		// universal related movment values
+	speedAdjustmentFactor : 1 / 64,
+	turnSpeedAdjustmentFactor : 1 / 8,
+	
 	init : function()
 	{
 		// preload necicery assets

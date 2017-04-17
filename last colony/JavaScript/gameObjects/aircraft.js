@@ -80,6 +80,9 @@ var aircraft =
 		selectable : true,
 		directions : 8,
 		
+		previousMoventX : 0,
+		previousMoventY : 0,
+		
 		// default function for animating any building
 		animate : function()
 		{
@@ -104,7 +107,15 @@ var aircraft =
 			switch(this.action)
 			{
 				case "fly" :
-					this.imageList = this.spriteArray["fly : " + this.direction];
+					var direction = wrapDirection(Math.round(this.direction), this.directions);
+				
+					this.imageList = this.spriteArray["fly : " + Math.round(this.direction)];
+					
+					if (this.imageList == undefined)
+					{
+						console.log("IMAGE LIST UNDEFINED");
+					}
+					
 					this.imageOffset = this.imageList.offset + this.animationIndex;
 					this.animationIndex++;
 					
@@ -235,7 +246,7 @@ var aircraft =
 			else
 			{
 				// find the ammount the aircraft can move this frame
-				var moement = this.speed * game.speedAjustmentFactor;
+				var movement = this.movmentSpeed * game.speedAdjustmentFactor;
 				
 				// find how much movment is needed for x and y axis
 				var angleInRadians = -(Math.round(this.direction) / this.direction) * 2 * Math.PI;

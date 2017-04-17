@@ -35,7 +35,7 @@
 	text-shadow : -2px 0 purple, 0 2px purple, 2px 0 purple, 0 -2px purple;
 }
 
-#gamestartscreen span :hover
+#gamestartscreen span:hover
 {
 	color : yellow;
 }
@@ -63,7 +63,7 @@
 }
 
 #missionscreen #entermission
-{	
+{
 	position : absolute;
 	top : 79px;
 	left : 6px;
@@ -74,7 +74,7 @@
 	background-position : 0px 0px;
 }
 
-#missionscreen #entermission :disabled, #missionscreen #entermission :active
+#missionscreen #entermission:disabled, #missionscreen #entermission:active
 {
 	background-image : url(images/buttons.png);
 	background-position : -251px 0px;
@@ -93,13 +93,13 @@
 	background-position : 0px -76px;
 }
 
-#missionscreen #exitmission :disabled, #missionscreen #exitmission :active
+#missionscreen #exitmission:disabled, #missionscreen #exitmission:active
 {
 	background-image : url(images/buttons.png);
-	background-position: -103px -76px;
+	background-position : -103px -76px;
 }
 
-#missionscreen #missionbriefing
+#missionscreen #missonbriefing
 {
 	position : absolute;
 	padding : 10px;
@@ -110,8 +110,8 @@
 	color : rgb(130, 150, 162);
 	/*color : purple;*/
 	font-size : 13px;
-    /*font-family: ‘Courier New‘, Courier, monospace;*/
-	font-family : 'Courier New', Courier, monospace;
+	/*font-family : 'Courier New', Courier, monospace;*/
+    font-family: ‘Courier New‘, Courier, monospace;
 }
 
 /* the image indicating the players UI from the game view */

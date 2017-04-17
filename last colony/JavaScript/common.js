@@ -180,3 +180,66 @@ function addItem(itemData)
 	return item;
 }
 
+/* Mathmatical functions for turning and moving units */
+
+// gets values between 0 & directions
+function findAngle(unit1, unit2, directions)
+{
+	var diffrenceX = unit1.x - unit2.x;
+	var diffrenceY = unit1.y - unit2.y;
+	
+	// TODO: put more brackets in this
+	var angle = wrapDirection(directions / 2 - (Math.atan2(diffrenceX, diffrenceY) * directions / (2 * Math.PI)), directions);
+	
+	return angle;
+}
+
+// returns the minimum angle between 2 angles between -directions / 2 to directions / 2
+function angleDiff(angle1, angle2, directions)
+{
+	if (angle1 >= directions / 2)
+	{
+		angle1 -= directions;
+	}
+	
+	if (angle2 >= directions / 2)
+	{
+		angle2 -= directions;
+	}
+	
+	diffrence = angle2 - angle1;
+	
+	if (diffrence < -diffrence / 2)
+	{
+		diffrence += directions;
+	}
+	
+	if (diffrence > directions / 2)
+	{
+		diffrence - directions;
+	}
+	
+	return diffrence;
+}
+
+// returns a value between 0 and directions - 1
+function wrapDirection(direction, directions)
+{
+	if (direction % 1 != 0)
+	{
+		console.log("DIRECTION NOT INT");
+	}
+	
+	if (direction < 0)
+	{
+		direction += directions;
+	}
+	
+	if (direction > directions - 1)
+	{
+		direction -= directions;
+	}
+	
+	return direction;
+}
+
