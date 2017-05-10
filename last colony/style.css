@@ -110,8 +110,8 @@
 	color : rgb(130, 150, 162);
 	/*color : purple;*/
 	font-size : 13px;
-	/*font-family : 'Courier New', Courier, monospace;*/
-    font-family: ‘Courier New‘, Courier, monospace;
+	font-family : 'Courier New', Courier, monospace;
+    /*font-family: ‘Courier New‘, Courier, monospace;*/
 }
 
 /* the image indicating the players UI from the game view */

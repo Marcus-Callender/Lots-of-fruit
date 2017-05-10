@@ -56,6 +56,8 @@ var game =
 		
 		game.canvasWidth = game.backgroundCanvas.width;
 		game.canvasHeight = game.backgroundCanvas.height;
+		
+		console.log("MATH ROUNDED (2.3):  " + Math.round(2.3));
 	},
 	
 	start : function()

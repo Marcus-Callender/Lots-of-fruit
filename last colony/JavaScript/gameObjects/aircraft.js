@@ -108,8 +108,12 @@ var aircraft =
 			{
 				case "fly" :
 					var direction = wrapDirection(Math.round(this.direction), this.directions);
+		
+					//console.log("MATH ROUNDED direction 1:  " + Math.round(this.direction));
 				
 					this.imageList = this.spriteArray["fly : " + Math.round(this.direction)];
+		
+					//console.log("MATH ROUNDED direction 2:  " + Math.round(this.direction));
 					
 					if (this.imageList == undefined)
 					{
@@ -250,6 +254,8 @@ var aircraft =
 				
 				// find how much movment is needed for x and y axis
 				var angleInRadians = -(Math.round(this.direction) / this.direction) * 2 * Math.PI;
+		
+				//console.log("MATH ROUNDED direction 3:  " + Math.round(this.direction));
 				
 				this.previousMoventX = -(movement * Math.sin(angleInRadians));
 				this.previousMoventY = -(movement * Math.cos(angleInRadians));

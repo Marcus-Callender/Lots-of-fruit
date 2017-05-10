@@ -225,21 +225,23 @@ function angleDiff(angle1, angle2, directions)
 // returns a value between 0 and directions - 1
 function wrapDirection(direction, directions)
 {
-	if (direction % 1 != 0)
+	var tempDir = Math.round(direction);
+	
+	if (tempDir % 1 != 0)
 	{
 		console.log("DIRECTION NOT INT");
 	}
 	
-	if (direction < 0)
+	if (tempDir < 0)
 	{
-		direction += directions;
+		tempDir += directions;
 	}
 	
-	if (direction > directions - 1)
+	if (tempDir > directions - 1)
 	{
-		direction -= directions;
+		tempDir -= directions;
 	}
 	
-	return direction;
+	return tempDir;
 }
 
