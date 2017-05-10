@@ -163,7 +163,7 @@ var game =
 			{
 				game.items[z].processOrders();
 			}
-		}
+		};
 		
 		// call the animate function for all the objects registered with the game
 		for (var z = 0; z < game.items.length; z++)
@@ -318,7 +318,7 @@ var game =
 		}
 	},
 	
-	findUnitFromID(id)
+	findUnitFromID : function(id)
 	{
 		for (var z = 0; z < game.items.length; z++)
 		{

@@ -253,7 +253,7 @@ var aircraft =
 				var movement = this.movmentSpeed * game.speedAdjustmentFactor;
 				
 				// find how much movment is needed for x and y axis
-				var angleInRadians = -(Math.round(this.direction) / this.direction) * 2 * Math.PI;
+				var angleInRadians = -(Math.round(this.direction) / this.directions) * 2 * Math.PI;
 		
 				//console.log("MATH ROUNDED direction 3:  " + Math.round(this.direction));
 				
